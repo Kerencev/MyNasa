@@ -12,11 +12,24 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="chipStyle">@style/MyChipStyle</item>
+        <item name="chipStyle">@style/ChipStyleDefaultTheme</item>
     </style>
 
-    <style name="MyChipStyle" parent="Widget.Material3.Chip.Suggestion">
+    <!-- Space theme -->
+    <style name="ThemeSpace" parent="Theme.Material3.Dark.NoActionBar">
+
+        <item name="chipStyle">@style/ChipStyleSpaceTheme</item>
+        <item name="android:colorBackground">@color/dracula_gray</item>
+        <item name="android:statusBarColor">@color/dracula_gray</item>
+    </style>
+
+    <!-- Widget's style -->
+    <style name="ChipStyleDefaultTheme" parent="Widget.Material3.Chip.Suggestion">
         <item name="chipBackgroundColor">@drawable/selector_background_chip</item>
+    </style>
+
+    <style name="ChipStyleSpaceTheme" parent="Widget.Material3.Chip.Suggestion">
+        <item name="chipBackgroundColor">@drawable/selector_background_chip_space_theme</item>
     </style>
 
 </resources>

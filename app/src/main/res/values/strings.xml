@@ -10,5 +10,9 @@
     <string name="search">Search</string>
     <string name="wiki_helper">wiki_helper</string>
     <string name="upload_photos_in_hd_quality">Upload photos in HD quality</string>
+    <string name="settings">settings</string>
+    <string name="main">Main</string>
+    <string name="space">Space</string>
+    <string name="by_default">By default</string>
 
 </resources>

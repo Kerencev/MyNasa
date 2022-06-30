@@ -4,8 +4,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import coil.load
@@ -49,6 +51,7 @@ class MainFragment : Fragment() {
             })
         }
         setChipGroupClicks()
+        setBottomBarClicks()
     }
 
     override fun onDestroyView() {
@@ -58,17 +61,32 @@ class MainFragment : Fragment() {
 
     private fun setChipGroupClicks() = with(binding) {
         chipDayBeforeYesterday.setOnClickListener {
-            it.isClickable = false
             viewModel.getPictureByDate(MyDate.getPastDays(2))
         }
         chipYesterday.setOnClickListener {
-            it.isClickable = false
             viewModel.getPictureByDate(MyDate.getPastDays(1))
         }
         chipToday.setOnClickListener {
-            it.isClickable = false
             viewModel.getPictureOfTheDay()
         }
+    }
+
+    private fun setBottomBarClicks() {
+        binding.bottomAppBar.setOnMenuItemClickListener(object : Toolbar.OnMenuItemClickListener,
+            androidx.appcompat.widget.Toolbar.OnMenuItemClickListener {
+            override fun onMenuItemClick(item: MenuItem?): Boolean {
+                when (item?.itemId) {
+                    R.id.action_settings -> {
+                        parentFragmentManager.beginTransaction()
+                            .hide(this@MainFragment)
+                            .add(R.id.fragment_container, SettingsFragment())
+                            .addToBackStack("")
+                            .commitAllowingStateLoss()
+                    }
+                }
+                return true
+            }
+        })
     }
 
     private fun renderData(appState: AppState) = with(binding) {
