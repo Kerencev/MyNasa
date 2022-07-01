@@ -4,9 +4,9 @@
     <item android:color="#FFC107" android:state_enabled="false"/>
 
     <!-- Selected -->
-    <item android:color="@color/dark_gray" android:state_selected="true"/>
-    <item android:color="@color/dark_gray" android:state_pressed="true"/>
+    <item android:color="@color/black" android:state_selected="true"/>
+    <item android:color="@color/black" android:state_pressed="true"/>
 
     <!-- Not selected -->
-    <item android:color="@color/black" />
+    <item android:color="@color/dark_gray" />
 </selector>
