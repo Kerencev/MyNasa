@@ -1,4 +1,4 @@
-package com.kerencev.mynasa.viewmodel
+package com.kerencev.mynasa.view.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

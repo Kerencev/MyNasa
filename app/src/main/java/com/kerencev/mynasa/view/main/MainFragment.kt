@@ -1,4 +1,4 @@
-package com.kerencev.mynasa.view
+package com.kerencev.mynasa.view.main
 
 import android.content.Intent
 import android.net.Uri
@@ -16,8 +16,7 @@ import com.kerencev.mynasa.R
 import com.kerencev.mynasa.data.retrofit.entities.PictureOfTheDayResponseData
 import com.kerencev.mynasa.databinding.FragmentMainBinding
 import com.kerencev.mynasa.model.helpers.MyDate
-import com.kerencev.mynasa.viewmodel.AppState
-import com.kerencev.mynasa.viewmodel.MainViewModel
+import com.kerencev.mynasa.view.settings.SettingsFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {

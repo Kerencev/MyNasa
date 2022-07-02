@@ -1,4 +1,4 @@
-package com.kerencev.mynasa.viewmodel
+package com.kerencev.mynasa.view.main
 
 import com.kerencev.mynasa.data.retrofit.entities.PictureOfTheDayResponseData
 
