@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MyNasa" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.MyNasa" parent="Theme.Material3.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -13,12 +13,13 @@
         <item name="android:statusBarColor">@color/toolbar_theme_my_nasa</item>
         <!-- Customize your theme here. -->
         <item name="chipStyle">@style/ChipStyleDefaultTheme</item>
-        <item name="menuItemColor">@color/black</item>
-        <item name="bottomNavigationStyle">@style/bottomNavigationMyNasa</item>
+        <item name="menuItemColor">@color/white</item>
+        <!--        <item name="bottomNavigationStyle">@style/bottomNavigationMyNasa</item>-->
     </style>
 
     <!-- Space theme -->
     <style name="ThemeSpace" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="menuItemColor">@color/white</item>
         <item name="chipStyle">@style/ChipStyleSpaceTheme</item>
         <item name="android:textViewStyle">@style/TextViewSpaceTheme</item>
         <item name="bottomNavigationStyle">@style/bottomNavigationSpaceTheme</item>

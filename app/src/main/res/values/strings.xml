@@ -14,5 +14,8 @@
     <string name="main">Main</string>
     <string name="space">Space</string>
     <string name="by_default">By default</string>
+    <string name="earth">Earth</string>
+    <string name="moon">Moon</string>
+    <string name="mars">Mars</string>
 
 </resources>

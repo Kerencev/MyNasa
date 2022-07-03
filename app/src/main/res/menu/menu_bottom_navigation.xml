@@ -8,8 +8,23 @@
         android:title="@string/photo_of_the_day" />
 
     <item
+        android:id="@+id/action_earth"
+        android:icon="@drawable/ic_earth"
+        android:title="@string/earth" />
+
+    <item
+        android:id="@+id/action_moon"
+        android:icon="@drawable/ic_moon"
+        android:title="@string/moon" />
+
+    <item
+        android:id="@+id/action_mars"
+        android:icon="@drawable/ic_mars"
+        android:title="@string/mars" />
+
+    <item
         android:id="@+id/action_settings"
-        android:icon="@drawable/ic_baseline_settings_24"
+        android:icon="@drawable/ic_settings_menu"
         android:title="@string/settings" />
 
 </menu>
