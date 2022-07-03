@@ -4,10 +4,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import coil.load
@@ -16,7 +14,6 @@ import com.kerencev.mynasa.R
 import com.kerencev.mynasa.data.retrofit.entities.PictureOfTheDayResponseData
 import com.kerencev.mynasa.databinding.FragmentMainBinding
 import com.kerencev.mynasa.model.helpers.MyDate
-import com.kerencev.mynasa.view.settings.SettingsFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
@@ -50,7 +47,6 @@ class MainFragment : Fragment() {
             })
         }
         setChipGroupClicks()
-        setBottomBarClicks()
     }
 
     override fun onDestroyView() {
@@ -68,24 +64,6 @@ class MainFragment : Fragment() {
         chipToday.setOnClickListener {
             viewModel.getPictureOfTheDay()
         }
-    }
-
-    private fun setBottomBarClicks() {
-        binding.bottomAppBar.setOnMenuItemClickListener(object : Toolbar.OnMenuItemClickListener,
-            androidx.appcompat.widget.Toolbar.OnMenuItemClickListener {
-            override fun onMenuItemClick(item: MenuItem?): Boolean {
-                when (item?.itemId) {
-                    R.id.action_settings -> {
-                        parentFragmentManager.beginTransaction()
-                            .hide(this@MainFragment)
-                            .add(R.id.fragment_container, SettingsFragment())
-                            .addToBackStack("")
-                            .commitAllowingStateLoss()
-                    }
-                }
-                return true
-            }
-        })
     }
 
     private fun renderData(appState: AppState) = with(binding) {
