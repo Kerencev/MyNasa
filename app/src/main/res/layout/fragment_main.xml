@@ -23,7 +23,7 @@
                 android:layout_margin="@dimen/margin_chip_group"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/inputLayout"
                 app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
@@ -64,7 +64,7 @@
                 app:endIconDrawable="@drawable/ic_wikipedia"
                 app:endIconMode="custom"
                 app:helperText="@string/wiki_helper"
-                app:layout_constraintTop_toBottomOf="@+id/checkbox_hd_img">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input"
@@ -81,7 +81,7 @@
                 android:contentDescription="@string/photo_of_the_day"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/inputLayout"
+                app:layout_constraintTop_toBottomOf="@id/checkbox_hd_img"
                 tools:src="@drawable/nasa" />
 
             <TextView

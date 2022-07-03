@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
-import com.kerencev.mynasa.R
 import com.kerencev.mynasa.databinding.FragmentSettingsBinding
 import com.kerencev.mynasa.model.helpers.SPreference
 
@@ -37,14 +36,8 @@ class SettingsFragment : Fragment() {
     private fun setTabLayoutClicks() = with(binding) {
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                when (tab?.position) {
-                    0 -> {
-                        SPreference.saveTheme(requireContext(), R.style.Theme_MyNasa)
-                    }
-                    1 -> {
-                        SPreference.saveTheme(requireContext(), R.style.ThemeSpace)
-                    }
-                }
+                val index = tab?.position
+                index?.let { SPreference.saveTheme(requireContext(), it) }
                 requireActivity().recreate()
             }
 
@@ -57,13 +50,7 @@ class SettingsFragment : Fragment() {
     }
 
     private fun setCurrentTabPosition() = with(binding) {
-        when (SPreference.getCurrentTheme(requireContext())) {
-            R.style.Theme_MyNasa -> {
-                tabLayout.selectTab(binding.tabLayout.getTabAt(0))
-            }
-            R.style.ThemeSpace -> {
-                tabLayout.selectTab(binding.tabLayout.getTabAt(1))
-            }
-        }
+        val position = SPreference.getCurrentTheme(requireContext())
+        tabLayout.selectTab(tabLayout.getTabAt(position))
     }
 }
