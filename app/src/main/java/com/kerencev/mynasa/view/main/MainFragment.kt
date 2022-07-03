@@ -13,14 +13,14 @@ import com.google.android.material.snackbar.Snackbar
 import com.kerencev.mynasa.R
 import com.kerencev.mynasa.data.retrofit.entities.PictureOfTheDayResponseData
 import com.kerencev.mynasa.databinding.FragmentMainBinding
-import com.kerencev.mynasa.model.helpers.MyDate
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
+const val BUNDLE_DATE_KEY = "BUNDLE_DATE_KEY"
 
 class MainFragment : Fragment() {
     private val viewModel: MainViewModel by viewModel()
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
-    private lateinit var snackBarLoading: Snackbar
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,36 +34,21 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
 
-        snackBarLoading =
-            Snackbar.make(binding.main, R.string.loading_data, Snackbar.LENGTH_INDEFINITE)
-
+        val date = arguments?.getString(BUNDLE_DATE_KEY)
         val pictureOfTheDayObserver = Observer<AppState> { renderData(it) }
         viewModel.pictureOfTheDayData.observe(viewLifecycleOwner, pictureOfTheDayObserver)
-        viewModel.getPictureOfTheDay()
+        date?.let { viewModel.getPictureByDate(it) }
 
         inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse("https://en.wikipedia.org/wiki/${binding.input.text.toString()}")
             })
         }
-        setChipGroupClicks()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun setChipGroupClicks() = with(binding) {
-        chipDayBeforeYesterday.setOnClickListener {
-            viewModel.getPictureByDate(MyDate.getPastDays(2))
-        }
-        chipYesterday.setOnClickListener {
-            viewModel.getPictureByDate(MyDate.getPastDays(1))
-        }
-        chipToday.setOnClickListener {
-            viewModel.getPictureOfTheDay()
-        }
     }
 
     private fun renderData(appState: AppState) = with(binding) {
@@ -72,7 +57,7 @@ class MainFragment : Fragment() {
                 setContent(appState.pictureOfTheDayData)
             }
             is AppState.Loading -> {
-                snackBarLoading.show()
+                progressBar.visibility = View.VISIBLE
             }
             is AppState.Error -> {
                 showSnackBarError()
@@ -82,7 +67,7 @@ class MainFragment : Fragment() {
 
     private fun setContent(pictureOfTheDayResponseData: PictureOfTheDayResponseData) =
         with(binding) {
-            snackBarLoading.dismiss()
+            progressBar.visibility = View.GONE
             imgPhotoDay.load(getImgUrl(pictureOfTheDayResponseData)) {
                 placeholder(R.drawable.nasa)
                 error(R.drawable.error)
@@ -98,6 +83,7 @@ class MainFragment : Fragment() {
     }
 
     private fun showSnackBarError() {
+        binding.progressBar.visibility = View.GONE
         Snackbar
             .make(
                 binding.main,
@@ -106,5 +92,15 @@ class MainFragment : Fragment() {
             )
             .setAction(R.string.reload) { viewModel.getPictureOfTheDay() }
             .show()
+    }
+
+    companion object {
+        fun newInstance(date: String): MainFragment {
+            val bundle = Bundle()
+            bundle.putString(BUNDLE_DATE_KEY, date)
+            val fragment = MainFragment()
+            fragment.arguments = bundle
+            return fragment
+        }
     }
 }

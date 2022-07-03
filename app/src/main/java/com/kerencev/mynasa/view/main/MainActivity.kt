@@ -7,6 +7,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kerencev.mynasa.R
 import com.kerencev.mynasa.model.helpers.SPreference
 import com.kerencev.mynasa.view.settings.SettingsFragment
+import com.kerencev.mynasa.view.viewpager.ViewPagerPhotoOfTheDayFragment
 
 const val THEME_MY_NASA = 0
 const val THEME_SPACE = 1
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, MainFragment())
+                .replace(R.id.fragment_container, ViewPagerPhotoOfTheDayFragment())
                 .commitAllowingStateLoss()
         }
         setBottomNavigationClicks()
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     private fun setBottomNavigationClicks() {
         findViewById<BottomNavigationView>(R.id.bottom_navigation).setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.action_photo_of_the_day -> navigateTo(MainFragment())
+                R.id.action_photo_of_the_day -> navigateTo(ViewPagerPhotoOfTheDayFragment())
                 R.id.action_settings -> navigateTo(SettingsFragment())
             }
             true
