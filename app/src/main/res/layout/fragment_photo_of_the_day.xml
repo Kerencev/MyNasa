@@ -42,16 +42,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/checkbox_hd_img"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_chip_group"
-                android:text="@string/upload_photos_in_hd_quality"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/inputLayout" />
-
             <ImageView
                 android:id="@+id/img_photo_day"
                 android:layout_width="0dp"
@@ -60,7 +50,7 @@
                 android:contentDescription="@string/photo_of_the_day"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/checkbox_hd_img"
+                app:layout_constraintTop_toBottomOf="@id/inputLayout"
                 tools:src="@drawable/nasa" />
 
             <TextView
