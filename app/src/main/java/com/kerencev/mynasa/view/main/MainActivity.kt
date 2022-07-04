@@ -6,8 +6,9 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kerencev.mynasa.R
 import com.kerencev.mynasa.model.helpers.SPreference
+import com.kerencev.mynasa.view.earth.ViewPagerEarthFragment
 import com.kerencev.mynasa.view.settings.SettingsFragment
-import com.kerencev.mynasa.view.viewpager.ViewPagerPhotoOfTheDayFragment
+import com.kerencev.mynasa.view.photooftheday.ViewPagerPhotoOfTheDayFragment
 
 const val THEME_MY_NASA = 0
 const val THEME_SPACE = 1
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.action_photo_of_the_day -> navigateTo(ViewPagerPhotoOfTheDayFragment())
                 R.id.action_settings -> navigateTo(SettingsFragment())
+                R.id.action_earth -> navigateTo(ViewPagerEarthFragment())
             }
             true
         }

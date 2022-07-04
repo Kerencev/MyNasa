@@ -1,4 +1,4 @@
-package com.kerencev.mynasa.view.viewpager
+package com.kerencev.mynasa.view.photooftheday
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -17,5 +17,6 @@
     <string name="earth">Earth</string>
     <string name="moon">Moon</string>
     <string name="mars">Mars</string>
+    <string name="light">Light</string>
 
 </resources>

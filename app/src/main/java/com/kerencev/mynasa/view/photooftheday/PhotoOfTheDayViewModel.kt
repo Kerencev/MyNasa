@@ -1,10 +1,11 @@
-package com.kerencev.mynasa.view.main
+package com.kerencev.mynasa.view.photooftheday
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kerencev.mynasa.model.repository.Repository
+import com.kerencev.mynasa.view.main.AppState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

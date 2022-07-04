@@ -1,10 +1,8 @@
-package com.kerencev.mynasa.view.viewpager
+package com.kerencev.mynasa.view.photooftheday
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.kerencev.mynasa.model.helpers.MyDate
-import com.kerencev.mynasa.view.main.MainFragment
 
 class ViewPagerPhotoOfTheDayAdapter(fragment: Fragment) :
     FragmentStateAdapter(fragment) {

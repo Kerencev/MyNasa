@@ -1,4 +1,4 @@
-package com.kerencev.mynasa.view.main
+package com.kerencev.mynasa.view.photooftheday
 
 import android.content.Intent
 import android.net.Uri
@@ -11,8 +11,9 @@ import androidx.lifecycle.Observer
 import coil.load
 import com.google.android.material.snackbar.Snackbar
 import com.kerencev.mynasa.R
-import com.kerencev.mynasa.data.retrofit.entities.PictureOfTheDayResponseData
+import com.kerencev.mynasa.data.retrofit.entities.pictureoftheday.PictureOfTheDayResponseData
 import com.kerencev.mynasa.databinding.FragmentPhotoOfTheDayBinding
+import com.kerencev.mynasa.view.main.AppState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 const val BUNDLE_DATE_KEY = "BUNDLE_DATE_KEY"

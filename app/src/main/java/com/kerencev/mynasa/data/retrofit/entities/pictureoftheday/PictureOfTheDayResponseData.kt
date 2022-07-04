@@ -1,4 +1,4 @@
-package com.kerencev.mynasa.data.retrofit.entities
+package com.kerencev.mynasa.data.retrofit.entities.pictureoftheday
 
 import com.google.gson.annotations.SerializedName
 
