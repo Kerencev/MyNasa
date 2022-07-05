@@ -10,4 +10,8 @@ object MyDate {
         val modifiedDate = date.minusDays(daysToSubtract)
         return modifiedDate.format(formatter)
     }
+
+    fun getTime(date: String): String {
+        return date.removeRange(0, 10)
+    }
 }

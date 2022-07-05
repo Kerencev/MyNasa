@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.kerencev.mynasa.R
 import com.kerencev.mynasa.data.retrofit.entities.dates.DatesEarthPhotosResponse
 import com.kerencev.mynasa.databinding.ViewPagerPhotoOfTheDayBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -40,89 +38,30 @@ class ViewPagerEarthFragment : Fragment() {
             // TODO Показать пользователю ошибку
             return
         }
-        val list: ArrayList<EarthFragment> = ArrayList()
-        for (i in 0 until  20) {
-            datesEarthPhotosResponse[i]?.date?.let {
-                list.add(EarthFragment.newInstance(it))
-            }
-        }
-        val adapter = ViewPagerEarthAdapter(this@ViewPagerEarthFragment, list)
+
+        val adapter = ViewPagerEarthAdapter(
+            fragment = this@ViewPagerEarthFragment,
+            data = getEarthFragments(datesEarthPhotosResponse, 20)
+        )
         viewPager.adapter = adapter
         bindTabLayout(datesEarthPhotosResponse)
     }
 
-    private fun bindTabLayout(datesEarthPhotosResponse: DatesEarthPhotosResponse) = with(binding) {
-        TabLayoutMediator(
-            tabLayout,
-            viewPager,
-            object : TabLayoutMediator.TabConfigurationStrategy {
-                override fun onConfigureTab(tab: TabLayout.Tab, position: Int) {
-                    tab.text = when (position) {
-                        0 -> {
-                            datesEarthPhotosResponse[0]?.date.toString()
-                        }
-                        1 -> {
-                            datesEarthPhotosResponse[1]?.date.toString()
-                        }
-                        2 -> {
-                            datesEarthPhotosResponse[2]?.date.toString()
-                        }
-                        3 -> {
-                            datesEarthPhotosResponse[3]?.date.toString()
-                        }
-                        4 -> {
-                            datesEarthPhotosResponse[4]?.date.toString()
-                        }
-                        5 -> {
-                            datesEarthPhotosResponse[5]?.date.toString()
-                        }
-                        6 -> {
-                            datesEarthPhotosResponse[6]?.date.toString()
-                        }
-                        7 -> {
-                            datesEarthPhotosResponse[7]?.date.toString()
-                        }
-                        8 -> {
-                            datesEarthPhotosResponse[8]?.date.toString()
-                        }
-                        9 -> {
-                            datesEarthPhotosResponse[9]?.date.toString()
-                        }
-                        10 -> {
-                            datesEarthPhotosResponse[10]?.date.toString()
-                        }
-                        11 -> {
-                            datesEarthPhotosResponse[11]?.date.toString()
-                        }
-                        12 -> {
-                            datesEarthPhotosResponse[12]?.date.toString()
-                        }
-                        13 -> {
-                            datesEarthPhotosResponse[13]?.date.toString()
-                        }
-                        14 -> {
-                            datesEarthPhotosResponse[14]?.date.toString()
-                        }
-                        15 -> {
-                            datesEarthPhotosResponse[15]?.date.toString()
-                        }
-                        16 -> {
-                            datesEarthPhotosResponse[16]?.date.toString()
-                        }
-                        17 -> {
-                            datesEarthPhotosResponse[17]?.date.toString()
-                        }
-                        18 -> {
-                            datesEarthPhotosResponse[18]?.date.toString()
-                        }
-                        19 -> {
-                            datesEarthPhotosResponse[19]?.date.toString()
-                        }
-                        else -> ""
-                    }
-                }
-            }).attach()
+    private fun getEarthFragments(data: DatesEarthPhotosResponse, count: Int): List<EarthFragment> {
+        val list: ArrayList<EarthFragment> = ArrayList()
+        for (i in 0 until count) {
+            data[i]?.date?.let { date ->
+                list.add(EarthFragment.newInstance(date))
+            }
+        }
+        return list
     }
+
+    private fun bindTabLayout(datesEarthPhotosResponse: DatesEarthPhotosResponse) = with(binding) {
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = datesEarthPhotosResponse[position]?.date.toString()
+        }
+    }.attach()
 
     override fun onDestroyView() {
         super.onDestroyView()
