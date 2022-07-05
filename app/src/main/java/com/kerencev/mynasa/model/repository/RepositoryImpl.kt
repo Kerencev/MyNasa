@@ -5,9 +5,16 @@ import com.kerencev.mynasa.data.retrofit.NasaAPI
 import com.kerencev.mynasa.data.retrofit.entities.dates.DatesEarthPhotosResponse
 import com.kerencev.mynasa.data.retrofit.entities.photo.EarthPhotoDataResponse
 import com.kerencev.mynasa.data.retrofit.entities.pictureoftheday.PictureOfTheDayResponseData
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.IOException
 
 class RepositoryImpl : Repository {
+
+    interface RetrofitCallBack {
+        fun response(data: PictureOfTheDayResponseData?)
+    }
 
     override fun getPictureOfTheDayApi(): PictureOfTheDayResponseData? {
         return try {
@@ -17,13 +24,21 @@ class RepositoryImpl : Repository {
         }
     }
 
-    override fun getPictureByDateApi(date: String): PictureOfTheDayResponseData? {
-        return try {
-            NasaAPI.create().getPictureOfTheDayByDate(BuildConfig.NASA_API_KEY, date).execute()
-                .body()
-        } catch (e: IOException) {
-            null
-        }
+    override fun getPictureByDateApi(date: String, callBack: RetrofitCallBack) {
+        NasaAPI.create().getPictureOfTheDayByDate(BuildConfig.NASA_API_KEY, date)
+            .enqueue(object : Callback<PictureOfTheDayResponseData> {
+                override fun onResponse(
+                    call: Call<PictureOfTheDayResponseData>,
+                    response: Response<PictureOfTheDayResponseData>
+                ) {
+                    callBack.response(response.body())
+                }
+
+                override fun onFailure(call: Call<PictureOfTheDayResponseData>, t: Throwable) {
+                    callBack.response(null)
+                }
+            })
+
     }
 
     override fun getEarthPhotosDates(): DatesEarthPhotosResponse? {

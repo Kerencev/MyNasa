@@ -6,7 +6,7 @@ import com.kerencev.mynasa.data.retrofit.entities.pictureoftheday.PictureOfTheDa
 
 interface Repository {
     fun getPictureOfTheDayApi(): PictureOfTheDayResponseData?
-    fun getPictureByDateApi(date: String): PictureOfTheDayResponseData?
+    fun getPictureByDateApi(date: String, callBack: RepositoryImpl.RetrofitCallBack)
     fun getEarthPhotosDates(): DatesEarthPhotosResponse?
     fun getEarthPhotosData(date: String): EarthPhotoDataResponse?
 }

@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kerencev.mynasa.data.retrofit.entities.pictureoftheday.PictureOfTheDayResponseData
 import com.kerencev.mynasa.model.repository.Repository
+import com.kerencev.mynasa.model.repository.RepositoryImpl
 import com.kerencev.mynasa.view.main.AppState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,10 +18,14 @@ class PhotoOfTheDayViewModel(private val repository: Repository) : ViewModel() {
     fun getPictureByDate(date: String) {
         _pictureOfTheDayData.value = AppState.Loading
         viewModelScope.launch(Dispatchers.IO) {
-            when (val result = repository.getPictureByDateApi(date)) {
-                null -> _pictureOfTheDayData.postValue(AppState.Error)
-                else -> _pictureOfTheDayData.postValue(AppState.Success(result))
-            }
+             repository.getPictureByDateApi(date, object : RepositoryImpl.RetrofitCallBack {
+                override fun response(data: PictureOfTheDayResponseData?) {
+                    when (data) {
+                        null -> { _pictureOfTheDayData.postValue(AppState.Error) }
+                        else -> { _pictureOfTheDayData.postValue(AppState.Success(data)) }
+                    }
+                }
+            })
         }
     }
 }
