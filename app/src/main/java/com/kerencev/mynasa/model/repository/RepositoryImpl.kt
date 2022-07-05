@@ -1,6 +1,7 @@
 package com.kerencev.mynasa.model.repository
 
 import com.kerencev.mynasa.BuildConfig
+import com.kerencev.mynasa.data.retrofit.RetrofitCallBack
 import com.kerencev.mynasa.data.retrofit.NasaAPI
 import com.kerencev.mynasa.data.retrofit.entities.dates.DatesEarthPhotosResponse
 import com.kerencev.mynasa.data.retrofit.entities.photo.EarthPhotoDataResponse
@@ -12,10 +13,6 @@ import java.io.IOException
 
 class RepositoryImpl : Repository {
 
-    interface RetrofitCallBack {
-        fun response(data: PictureOfTheDayResponseData?)
-    }
-
     override fun getPictureOfTheDayApi(): PictureOfTheDayResponseData? {
         return try {
             NasaAPI.create().getPictureOfTheDay(BuildConfig.NASA_API_KEY).execute().body()
@@ -24,7 +21,10 @@ class RepositoryImpl : Repository {
         }
     }
 
-    override fun getPictureByDateApi(date: String, callBack: RetrofitCallBack) {
+    override fun getPictureByDateApi(
+        date: String,
+        callBack: RetrofitCallBack<PictureOfTheDayResponseData>
+    ) {
         NasaAPI.create().getPictureOfTheDayByDate(BuildConfig.NASA_API_KEY, date)
             .enqueue(object : Callback<PictureOfTheDayResponseData> {
                 override fun onResponse(

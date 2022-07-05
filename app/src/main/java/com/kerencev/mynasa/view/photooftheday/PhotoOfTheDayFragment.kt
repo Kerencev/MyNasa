@@ -55,8 +55,8 @@ class MainFragment : Fragment() {
 
     private fun renderData(appState: AppState) = with(binding) {
         when (appState) {
-            is AppState.Success -> {
-                setContent(appState.pictureOfTheDayData)
+            is AppState.Success<*> -> {
+                setContent(appState.pictureOfTheDayData as PictureOfTheDayResponseData)
             }
             is AppState.Loading -> {
                 progressBar.visibility = View.VISIBLE
