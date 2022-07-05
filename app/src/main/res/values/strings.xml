@@ -18,5 +18,6 @@
     <string name="moon">Moon</string>
     <string name="mars">Mars</string>
     <string name="light">Light</string>
+    <string name="photo_of_earth">Photo of Earth</string>
 
 </resources>

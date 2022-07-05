@@ -3,4 +3,5 @@
     <dimen name="height_toolbar">56dp</dimen>
     <dimen name="margin_chip_group">8dp</dimen>
     <dimen name="padding_horizontal_chip_group">8dp</dimen>
+    <dimen name="padding_tv_info">12dp</dimen>
 </resources>

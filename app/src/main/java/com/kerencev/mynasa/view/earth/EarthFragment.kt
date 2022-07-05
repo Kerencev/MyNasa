@@ -10,6 +10,7 @@ import coil.load
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.kerencev.mynasa.BuildConfig
+import com.kerencev.mynasa.R
 import com.kerencev.mynasa.data.retrofit.entities.photo.EarthPhotoDataResponse
 import com.kerencev.mynasa.databinding.FragmentEarthBinding
 import com.kerencev.mynasa.model.helpers.MyDate
@@ -37,20 +38,28 @@ class EarthFragment : Fragment() {
         date = arguments?.getString(BUNDLE_KEY_DATE)
 
         val observer = Observer<EarthPhotoDataResponse?> {
-            loadImage(it, date)
+            setInfoTitle(it)
+            loadImage(it[0].image, date)
             renderChipGroup(it)
         }
         viewModel.earthPhotoData.observe(viewLifecycleOwner, observer)
         date?.let { viewModel.getEarthPhotoData(it) }
     }
 
-    private fun loadImage(data: EarthPhotoDataResponse, date: String?) {
+    private fun setInfoTitle(data: EarthPhotoDataResponse?) {
+        binding.tvInfo.text = data?.get(0)?.caption
+    }
+
+    private fun loadImage(image: String, date: String?) {
         val url = "https://api.nasa.gov/EPIC/archive/natural/" +
                 date?.replace("-", "/", true) +
                 "/png/" +
-                "${data[0].image}" +
+                image +
                 ".png?api_key=${BuildConfig.NASA_API_KEY}"
-        binding.imgPhotoEarth.load(url)
+        binding.imgPhotoEarth.load(url) {
+            placeholder(R.drawable.earth_place_holder)
+            error(R.drawable.error)
+        }
     }
 
     private fun renderChipGroup(data: EarthPhotoDataResponse) = with(binding) {
@@ -72,12 +81,7 @@ class EarthFragment : Fragment() {
         chipGroup.setOnCheckedChangeListener(object : ChipGroup.OnCheckedChangeListener {
             override fun onCheckedChanged(group: ChipGroup?, checkedId: Int) {
                 if (checkedId != 0) chipGroup.getChildAt(0).isSelected = false
-                val url = "https://api.nasa.gov/EPIC/archive/natural/" +
-                        date?.replace("-", "/", true) +
-                        "/png/" +
-                        listOfPhotos[checkedId] +
-                        ".png?api_key=${BuildConfig.NASA_API_KEY}"
-                binding.imgPhotoEarth.load(url)
+                loadImage(listOfPhotos[checkedId], date)
             }
         })
     }
