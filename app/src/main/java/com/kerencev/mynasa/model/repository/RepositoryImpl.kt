@@ -41,11 +41,38 @@ class RepositoryImpl : Repository {
 
     }
 
-    override fun getEarthPhotosDates(): DatesEarthPhotosResponse? {
-        return NasaAPI.create().getEarthPhotosDates(BuildConfig.NASA_API_KEY).execute().body()
+    override fun getEarthPhotosDates(callBack: RetrofitCallBack<DatesEarthPhotosResponse>) {
+        NasaAPI.create().getEarthPhotosDates(BuildConfig.NASA_API_KEY)
+            .enqueue(object : Callback<DatesEarthPhotosResponse> {
+                override fun onResponse(
+                    call: Call<DatesEarthPhotosResponse>,
+                    response: Response<DatesEarthPhotosResponse>
+                ) {
+                    callBack.response(response.body())
+                }
+
+                override fun onFailure(call: Call<DatesEarthPhotosResponse>, t: Throwable) {
+                    callBack.response(null)
+                }
+            })
     }
 
-    override fun getEarthPhotosData(date: String): EarthPhotoDataResponse? {
-        return NasaAPI.create().getEarthPhotoData(date, BuildConfig.NASA_API_KEY).execute().body()
+    override fun getEarthPhotosData(
+        date: String,
+        callBack: RetrofitCallBack<EarthPhotoDataResponse>
+    ) {
+        NasaAPI.create().getEarthPhotoData(date, BuildConfig.NASA_API_KEY)
+            .enqueue(object : Callback<EarthPhotoDataResponse> {
+                override fun onResponse(
+                    call: Call<EarthPhotoDataResponse>,
+                    response: Response<EarthPhotoDataResponse>
+                ) {
+                    callBack.response(response.body())
+                }
+
+                override fun onFailure(call: Call<EarthPhotoDataResponse>, t: Throwable) {
+                    callBack.response(null)
+                }
+            })
     }
 }

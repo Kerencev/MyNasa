@@ -14,8 +14,4 @@ object MyDate {
     fun getTime(date: String): String {
         return date.removeRange(0, 10)
     }
-
-    fun getDate(date: String): String {
-        return date.removeRange(10, date.length)
-    }
 }

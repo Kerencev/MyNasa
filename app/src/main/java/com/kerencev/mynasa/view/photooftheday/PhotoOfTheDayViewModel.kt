@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.kerencev.mynasa.data.retrofit.RetrofitCallBack
 import com.kerencev.mynasa.data.retrofit.entities.pictureoftheday.PictureOfTheDayResponseData
 import com.kerencev.mynasa.model.repository.Repository
-import com.kerencev.mynasa.model.repository.RepositoryImpl
 import com.kerencev.mynasa.view.main.AppState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

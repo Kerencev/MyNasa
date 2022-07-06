@@ -8,6 +8,6 @@ import com.kerencev.mynasa.data.retrofit.entities.pictureoftheday.PictureOfTheDa
 interface Repository {
     fun getPictureOfTheDayApi(): PictureOfTheDayResponseData?
     fun getPictureByDateApi(date: String, callBack: RetrofitCallBack<PictureOfTheDayResponseData>)
-    fun getEarthPhotosDates(): DatesEarthPhotosResponse?
-    fun getEarthPhotosData(date: String): EarthPhotoDataResponse?
+    fun getEarthPhotosDates(callBack: RetrofitCallBack<DatesEarthPhotosResponse>)
+    fun getEarthPhotosData(date: String, callBack: RetrofitCallBack<EarthPhotoDataResponse>)
 }
