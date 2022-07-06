@@ -8,6 +8,7 @@ import com.kerencev.mynasa.data.retrofit.RetrofitCallBack
 import com.kerencev.mynasa.data.retrofit.entities.dates.DatesEarthPhotosResponse
 import com.kerencev.mynasa.data.retrofit.entities.photo.EarthPhotoDataResponse
 import com.kerencev.mynasa.model.repository.Repository
+import com.kerencev.mynasa.view.main.AppState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -15,8 +16,8 @@ class EarthViewModel(private val repository: Repository) : ViewModel() {
     private val _earthPhotosDatesData = MutableLiveData<DatesEarthPhotosResponse?>()
     val earthPhotosDatesData: LiveData<DatesEarthPhotosResponse?> get() = _earthPhotosDatesData
 
-    private val _earthPhotoData = MutableLiveData<EarthPhotoDataResponse?>()
-    val earthPhotoData: LiveData<EarthPhotoDataResponse?> get() = _earthPhotoData
+    private val _earthPhotoData = MutableLiveData<AppState>()
+    val earthPhotoData: LiveData<AppState> get() = _earthPhotoData
 
     fun getEarthPhotosDates() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -32,7 +33,14 @@ class EarthViewModel(private val repository: Repository) : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getEarthPhotosData(date, object : RetrofitCallBack<EarthPhotoDataResponse> {
                 override fun response(data: EarthPhotoDataResponse?) {
-                    _earthPhotoData.postValue(data)
+                    when (data) {
+                        null -> _earthPhotoData.postValue(AppState.Error)
+                        else -> _earthPhotoData.postValue(
+                            AppState.Success<EarthPhotoDataResponse>(
+                                data
+                            )
+                        )
+                    }
                 }
             })
         }

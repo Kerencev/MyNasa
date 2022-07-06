@@ -9,11 +9,13 @@ import androidx.lifecycle.Observer
 import coil.load
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.snackbar.Snackbar
 import com.kerencev.mynasa.BuildConfig
 import com.kerencev.mynasa.R
 import com.kerencev.mynasa.data.retrofit.entities.photo.EarthPhotoDataResponse
 import com.kerencev.mynasa.databinding.FragmentEarthBinding
 import com.kerencev.mynasa.model.helpers.MyDate
+import com.kerencev.mynasa.view.main.AppState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 const val BUNDLE_KEY_DATE = "BUNDLE_KEY_DATE"
@@ -37,20 +39,32 @@ class EarthFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         date = arguments?.getString(BUNDLE_KEY_DATE)
 
-        val observer = Observer<EarthPhotoDataResponse?> {
-            setInfoTitle(it)
-            loadImage(it[0].image, date)
-            renderChipGroup(it)
-        }
+        val observer = Observer<AppState> { renderData(it) }
         viewModel.earthPhotoData.observe(viewLifecycleOwner, observer)
         date?.let { viewModel.getEarthPhotoData(it) }
     }
 
-    private fun setInfoTitle(data: EarthPhotoDataResponse?) {
-        binding.tvInfo.text = data?.get(0)?.caption
+    private fun renderData(appState: AppState) {
+        when (appState) {
+            is AppState.Success<*> -> {
+                binding.progressBar.visibility = View.GONE
+                setInfoTitle(appState.data as EarthPhotoDataResponse)
+                loadImage(appState.data[0].image)
+                renderChipGroup(appState.data)
+            }
+            is AppState.Loading -> {}
+            is AppState.Error -> {
+                binding.progressBar.visibility = View.GONE
+                showSnackBarError()
+            }
+        }
     }
 
-    private fun loadImage(image: String, date: String?) {
+    private fun setInfoTitle(data: EarthPhotoDataResponse) {
+        binding.tvInfo.text = data[0].caption
+    }
+
+    private fun loadImage(image: String) {
         val url = "https://api.nasa.gov/EPIC/archive/natural/" +
                 date?.replace("-", "/", true) +
                 "/png/" +
@@ -81,9 +95,20 @@ class EarthFragment : Fragment() {
         chipGroup.setOnCheckedChangeListener(object : ChipGroup.OnCheckedChangeListener {
             override fun onCheckedChanged(group: ChipGroup?, checkedId: Int) {
                 if (checkedId != 0) chipGroup.getChildAt(0).isSelected = false
-                loadImage(listOfPhotos[checkedId], date)
+                loadImage(listOfPhotos[checkedId])
             }
         })
+    }
+
+    private fun showSnackBarError() {
+        Snackbar
+            .make(
+                binding.main,
+                R.string.data_could_not_be_retrieved_check_your_internet_connection,
+                Snackbar.LENGTH_LONG
+            )
+            .setAction(R.string.reload) { date?.let { viewModel.getEarthPhotoData(it) } }
+            .show()
     }
 
     override fun onDestroyView() {
