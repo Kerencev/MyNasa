@@ -109,5 +109,7 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="mars_rover_photos">Mars Rover Photos</string>
+    <string name="enter_the_date">Enter the date</string>
+    <string name="enter_the_desired_date">Enter the desired date</string>
 
 </resources>

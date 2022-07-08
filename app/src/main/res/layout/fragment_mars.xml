@@ -7,24 +7,33 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height">
+        android:layout_height="@dimen/collapsing_bar_height">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:title="@string/mars_rover_photos"
+            app:layout_scrollFlags="scroll|enterAlways"
             app:toolbarId="@+id/toolbar">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin" />
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:padding="@dimen/padding_collapsing_toolbar_title"
+                android:text="@string/enter_the_desired_date"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/enter_the_date"
+        android:src="@drawable/edit_calendar_24"
+        app:layout_behavior=".view.behaviors.ActionButtonBehavior" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

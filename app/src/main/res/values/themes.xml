@@ -15,7 +15,7 @@
         <!-- Customize your theme here. -->
         <item name="chipStyle">@style/ChipStyleDefaultTheme</item>
         <item name="menuItemColor">@color/black</item>
-        <item name="bottomNavigationStyle">@style/bottomNavigationMyNasa</item>
+        <item name="bottomNavigationStyle">@style/BottomNavigationMyNasa</item>
     </style>
 
     <!-- Space theme -->
@@ -23,10 +23,11 @@
         <item name="menuItemColor">@color/white</item>
         <item name="chipStyle">@style/ChipStyleSpaceTheme</item>
         <item name="android:textViewStyle">@style/TextViewSpaceTheme</item>
-        <item name="bottomNavigationStyle">@style/bottomNavigationSpaceTheme</item>
+        <item name="bottomNavigationStyle">@style/BottomNavigationSpaceTheme</item>
         <item name="android:colorBackground">@color/dracula_gray</item>
         <item name="android:statusBarColor">?colorSurface</item>
         <item name="android:navigationBarColor">@color/black</item>
+        <item name="collapsingToolbarLayoutStyle">@style/CollapsingToolbarSpaceTheme</item>
     </style>
 
     <!-- Widget's style Theme.MyNasa -->
@@ -34,7 +35,7 @@
         <item name="chipBackgroundColor">@drawable/selector_background_chip</item>
     </style>
 
-    <style name="bottomNavigationMyNasa" parent="Widget.Material3.BottomNavigationView">
+    <style name="BottomNavigationMyNasa" parent="Widget.Material3.BottomNavigationView">
         <item name="backgroundTint">@color/light_gray</item>
         <item name="android:minHeight">60dp</item>
         <item name="itemPaddingTop">4dp</item>
@@ -43,6 +44,10 @@
         <item name="itemTextColor">@color/black</item>
         <item name="itemActiveIndicatorStyle">@style/ActiveIndicatorStyleMyNasa</item>
         <item name="itemRippleColor">@color/gray</item>
+    </style>
+
+    <style name="ActiveIndicatorStyleMyNasa" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/gray</item>
     </style>
 
     <!-- Widget's style ThemeSpace -->
@@ -54,15 +59,16 @@
         <item name="android:fontFamily">@font/aclonica</item>
     </style>
 
-    <style name="bottomNavigationSpaceTheme" parent="Widget.Material3.BottomNavigationView">
+    <style name="BottomNavigationSpaceTheme" parent="Widget.Material3.BottomNavigationView">
         <item name="android:minHeight">60dp</item>
         <item name="itemPaddingTop">4dp</item>
         <item name="itemPaddingBottom">4dp</item>
-
+        <item name="android:background">@color/black</item>
     </style>
 
-    <style name="ActiveIndicatorStyleMyNasa" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">@color/gray</item>
+    <style name="CollapsingToolbarSpaceTheme" parent="Widget.Material3.CollapsingToolbar">
+        <item name="android:background">?colorSurface</item>
+        <item name="contentScrim">?colorSurface</item>
     </style>
 
 </resources>
