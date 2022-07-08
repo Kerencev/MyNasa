@@ -7,6 +7,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kerencev.mynasa.R
 import com.kerencev.mynasa.model.helpers.SPreference
 import com.kerencev.mynasa.view.earth.ViewPagerEarthFragment
+import com.kerencev.mynasa.view.mars.MarsFragment
 import com.kerencev.mynasa.view.settings.SettingsFragment
 import com.kerencev.mynasa.view.photooftheday.ViewPagerPhotoOfTheDayFragment
 
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.action_photo_of_the_day -> navigateTo(ViewPagerPhotoOfTheDayFragment())
                 R.id.action_settings -> navigateTo(SettingsFragment())
                 R.id.action_earth -> navigateTo(ViewPagerEarthFragment())
+                R.id.action_mars -> navigateTo(MarsFragment())
             }
             true
         }
