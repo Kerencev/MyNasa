@@ -4,4 +4,5 @@
     <dimen name="margin_chip_group">8dp</dimen>
     <dimen name="padding_horizontal_chip_group">8dp</dimen>
     <dimen name="padding_tv_info">12dp</dimen>
+    <dimen name="margin_top_chip_group_fragment_earth">12dp</dimen>
 </resources>
