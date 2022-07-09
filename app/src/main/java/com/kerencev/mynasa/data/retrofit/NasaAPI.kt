@@ -1,7 +1,8 @@
 package com.kerencev.mynasa.data.retrofit
 
 import com.kerencev.mynasa.data.retrofit.entities.dates.DatesEarthPhotosResponse
-import com.kerencev.mynasa.data.retrofit.entities.mars.MarsRoverManifestResponse
+import com.kerencev.mynasa.data.retrofit.entities.mars.rovermanifest.MarsRoverManifestResponse
+import com.kerencev.mynasa.data.retrofit.entities.mars.roverphotos.RoverPhotosResponse
 import com.kerencev.mynasa.data.retrofit.entities.photo.EarthPhotoDataResponse
 import com.kerencev.mynasa.data.retrofit.entities.pictureoftheday.PictureOfTheDayResponseData
 import retrofit2.Call
@@ -31,8 +32,14 @@ interface NasaAPI {
         @Query("api_key") apiKey: String
     ): Call<EarthPhotoDataResponse>
 
-    @GET("mars-photos/api/v1//manifests/curiosity")
+    @GET("mars-photos/api/v1/manifests/curiosity")
     fun getRoverManifest(@Query("api_key") apiKey: String): Call<MarsRoverManifestResponse>
+
+    @GET("mars-photos/api/v1/rovers/curiosity/photos")
+    fun getRoverPhotos(
+        @Query("earth_date") date: String,
+        @Query("api_key") apiKey: String
+    ): Call<RoverPhotosResponse>
 
     companion object {
 

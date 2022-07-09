@@ -2,7 +2,8 @@ package com.kerencev.mynasa.model.repository
 
 import com.kerencev.mynasa.data.retrofit.RetrofitCallBack
 import com.kerencev.mynasa.data.retrofit.entities.dates.DatesEarthPhotosResponse
-import com.kerencev.mynasa.data.retrofit.entities.mars.MarsRoverManifestResponse
+import com.kerencev.mynasa.data.retrofit.entities.mars.rovermanifest.MarsRoverManifestResponse
+import com.kerencev.mynasa.data.retrofit.entities.mars.roverphotos.RoverPhotosResponse
 import com.kerencev.mynasa.data.retrofit.entities.photo.EarthPhotoDataResponse
 import com.kerencev.mynasa.data.retrofit.entities.pictureoftheday.PictureOfTheDayResponseData
 
@@ -12,4 +13,5 @@ interface Repository {
     fun getEarthPhotosDates(callBack: RetrofitCallBack<DatesEarthPhotosResponse>)
     fun getEarthPhotosData(date: String, callBack: RetrofitCallBack<EarthPhotoDataResponse>)
     fun getMarsRoverManifest(callBack: RetrofitCallBack<MarsRoverManifestResponse>)
+    fun getLastMarsPhotos(date: String, callBack: RetrofitCallBack<RoverPhotosResponse>)
 }

@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.kerencev.mynasa.data.retrofit.entities.mars.roverphotos.RoverPhotosResponse
 import com.kerencev.mynasa.databinding.FragmentMarsBinding
+import com.kerencev.mynasa.view.main.AppState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MarsFragment : Fragment() {
@@ -34,7 +36,24 @@ class MarsFragment : Fragment() {
             }
         }
         viewModel.lastDateData.observe(viewLifecycleOwner, lastDateObserver)
+
+        val lastPhotosObserver = Observer<AppState> { renderData(it) }
+        viewModel.lastPhotosData.observe(viewLifecycleOwner, lastPhotosObserver)
+
         viewModel.getLastDate()
+    }
+
+    private fun renderData(appState: AppState) {
+        when (appState) {
+            is AppState.Success<*> -> {
+                val data = appState.data as RoverPhotosResponse
+                val adapter = MarsPhotoAdapter()
+                binding.recycler.adapter = adapter
+                adapter.setData(data.photos)
+            }
+            is AppState.Loading -> {}
+            is AppState.Error -> {}
+        }
     }
 
     override fun onDestroyView() {

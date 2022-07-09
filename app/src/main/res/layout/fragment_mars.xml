@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -21,7 +22,7 @@
                 android:layout_height="match_parent"
                 android:gravity="bottom"
                 android:padding="@dimen/padding_collapsing_toolbar_title"
-                android:text="@string/enter_the_desired_date"
+                android:text="@string/here_are_the_latest_relevant_photos_from_the_rover"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -35,17 +36,13 @@
         android:src="@drawable/edit_calendar_24"
         app:layout_behavior=".view.behaviors.ActionButtonBehavior" />
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:text="@string/large_text" />
-
-    </androidx.core.widget.NestedScrollView>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:listitem="@layout/mars_photo_item" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,4 +1,4 @@
-package com.kerencev.mynasa.data.retrofit.entities.mars
+package com.kerencev.mynasa.data.retrofit.entities.mars.rovermanifest
 
 data class Photo(
     val cameras: List<String>,
