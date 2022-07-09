@@ -19,7 +19,8 @@ class MarsViewModel(private val repository: Repository) : ViewModel() {
     private val _lastPhotosData = MutableLiveData<AppState>()
     val lastPhotosData: LiveData<AppState> get() = _lastPhotosData
 
-    fun getLastPhotos(date: String) {
+    fun getPhotosByDate(date: String) {
+        _lastPhotosData.value = AppState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             repository.getLastMarsPhotos(date, object : RetrofitCallBack<RoverPhotosResponse> {
                 override fun response(data: RoverPhotosResponse?) {

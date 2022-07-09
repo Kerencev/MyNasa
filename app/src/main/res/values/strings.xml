@@ -113,5 +113,7 @@
     <string name="enter_the_desired_date">Enter the desired date</string>
     <string name="here_are_the_latest_relevant_photos_from_the_rover">Here are the latest relevant photos from the rover</string>
     <string name="photo_by_rover">Photo by rover</string>
+    <string name="there_are_no_photos_on_this_date">There are no photos on this date</string>
+    <string name="select_date">Select a date</string>
 
 </resources>

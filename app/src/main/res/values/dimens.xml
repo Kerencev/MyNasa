@@ -8,4 +8,6 @@
     <dimen name="collapsing_bar_height">100dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="padding_collapsing_toolbar_title">16dp</dimen>
+    <dimen name="padding_tv_date_fragment_mars">12dp</dimen>
+    <dimen name="margin_progress_bar">12dp</dimen>
 </resources>
