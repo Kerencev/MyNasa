@@ -27,7 +27,7 @@ class MainFragment : Fragment() {
     private var _binding: FragmentPhotoOfTheDayBinding? = null
     private val binding get() = _binding!!
     private var date: String? = null
-    private var tapImageFlag = false
+    private var tapFlag = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -84,7 +84,27 @@ class MainFragment : Fragment() {
             imgPhotoDay.setOnClickListener {
                 zoomImage(it)
             }
+            tvPhotoDay.setOnClickListener {
+                moveToTop()
+            }
         }
+
+    private fun moveToTop() = with(binding) {
+        tapFlag = !tapFlag
+        val params = scroll.layoutParams as ConstraintLayout.LayoutParams
+        TransitionManager.beginDelayedTransition(binding.main)
+        when (tapFlag) {
+            true -> {
+                params.topToBottom = R.id.inputLayout
+                imgPhotoDay.visibility = View.GONE
+            }
+            false -> {
+                params.topToBottom = R.id.img_photo_day
+                imgPhotoDay.visibility = View.VISIBLE
+            }
+        }
+        scroll.layoutParams = params
+    }
 
     private fun showSnackBarError() {
         binding.progressBar.visibility = View.GONE
@@ -114,10 +134,10 @@ class MainFragment : Fragment() {
     }
 
     private fun zoomImage(view: View) = with(binding) {
-        tapImageFlag = !tapImageFlag
+        tapFlag = !tapFlag
         val params = view.layoutParams as ConstraintLayout.LayoutParams
         animateImageZoom()
-        when (tapImageFlag) {
+        when (tapFlag) {
             true -> {
                 params.height = ConstraintLayout.LayoutParams.MATCH_PARENT
                 imgPhotoDay.scaleType = ImageView.ScaleType.CENTER_CROP
