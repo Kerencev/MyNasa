@@ -7,6 +7,8 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.transition.*
@@ -25,6 +27,7 @@ class MainFragment : Fragment() {
     private var _binding: FragmentPhotoOfTheDayBinding? = null
     private val binding get() = _binding!!
     private var date: String? = null
+    private var tapImageFlag = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,29 +74,16 @@ class MainFragment : Fragment() {
 
     private fun setContent(pictureOfTheDayResponseData: PictureOfTheDayResponseData) =
         with(binding) {
-//            TransitionManager.beginDelayedTransition(main) //Auto animation
-            // Custom animation
-            val animateTransition = TransitionSet()
-            animateTransition.ordering = TransitionSet.ORDERING_TOGETHER
-            animateTransition.duration = 2000L
-            animateTransition.addTransition(Slide(Gravity.TOP))
-            animateTransition.addTransition(ChangeBounds())
-            TransitionManager.beginDelayedTransition(main, animateTransition)
-            // Custom animation
+            animateAllContent() // Custom Animation
             progressBar.visibility = View.GONE
             imgPhotoDay.load(pictureOfTheDayResponseData.hdurl) {
                 placeholder(R.drawable.nasa)
                 error(R.drawable.error)
             }
             tvPhotoDay.text = pictureOfTheDayResponseData.explanation
-
-            //Image Zoom
             imgPhotoDay.setOnClickListener {
-
-
+                zoomImage(it)
             }
-
-            //Image Zoom
         }
 
     private fun showSnackBarError() {
@@ -106,6 +96,38 @@ class MainFragment : Fragment() {
             )
             .setAction(R.string.reload) { date?.let { viewModel.getPictureByDate(it) } }
             .show()
+    }
+
+    private fun animateAllContent() {
+        val animateTransition = TransitionSet()
+        animateTransition.ordering = TransitionSet.ORDERING_TOGETHER
+        animateTransition.addTransition(Slide(Gravity.TOP))
+        animateTransition.addTransition(ChangeBounds())
+        TransitionManager.beginDelayedTransition(binding.main, animateTransition)
+    }
+
+    private fun animateImageZoom() {
+        val transitionSet = TransitionSet()
+        transitionSet.addTransition(ChangeBounds())
+        transitionSet.addTransition(ChangeImageTransform())
+        TransitionManager.beginDelayedTransition(binding.main, transitionSet)
+    }
+
+    private fun zoomImage(view: View) = with(binding) {
+        tapImageFlag = !tapImageFlag
+        val params = view.layoutParams as ConstraintLayout.LayoutParams
+        animateImageZoom()
+        when (tapImageFlag) {
+            true -> {
+                params.height = ConstraintLayout.LayoutParams.MATCH_PARENT
+                imgPhotoDay.scaleType = ImageView.ScaleType.CENTER_CROP
+            }
+            false -> {
+                params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
+                imgPhotoDay.scaleType = ImageView.ScaleType.CENTER_INSIDE
+            }
+        }
+        view.layoutParams = params
     }
 
     companion object {
