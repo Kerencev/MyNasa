@@ -3,11 +3,13 @@ package com.kerencev.mynasa.view.photooftheday
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.transition.*
 import coil.load
 import com.google.android.material.snackbar.Snackbar
 import com.kerencev.mynasa.R
@@ -69,12 +71,29 @@ class MainFragment : Fragment() {
 
     private fun setContent(pictureOfTheDayResponseData: PictureOfTheDayResponseData) =
         with(binding) {
+//            TransitionManager.beginDelayedTransition(main) //Auto animation
+            // Custom animation
+            val animateTransition = TransitionSet()
+            animateTransition.ordering = TransitionSet.ORDERING_TOGETHER
+            animateTransition.duration = 2000L
+            animateTransition.addTransition(Slide(Gravity.TOP))
+            animateTransition.addTransition(ChangeBounds())
+            TransitionManager.beginDelayedTransition(main, animateTransition)
+            // Custom animation
             progressBar.visibility = View.GONE
             imgPhotoDay.load(pictureOfTheDayResponseData.hdurl) {
                 placeholder(R.drawable.nasa)
                 error(R.drawable.error)
             }
             tvPhotoDay.text = pictureOfTheDayResponseData.explanation
+
+            //Image Zoom
+            imgPhotoDay.setOnClickListener {
+
+
+            }
+
+            //Image Zoom
         }
 
     private fun showSnackBarError() {
