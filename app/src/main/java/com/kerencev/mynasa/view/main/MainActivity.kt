@@ -32,18 +32,18 @@ class MainActivity : AppCompatActivity() {
     private fun setBottomNavigationClicks() {
         findViewById<BottomNavigationView>(R.id.bottom_navigation).setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.action_photo_of_the_day -> navigateTo(ViewPagerPhotoOfTheDayFragment())
-                R.id.action_settings -> navigateTo(SettingsFragment())
-                R.id.action_earth -> navigateTo(ViewPagerEarthFragment())
-                R.id.action_mars -> navigateTo(MarsFragment())
+                R.id.action_photo_of_the_day -> navigateTo(ViewPagerPhotoOfTheDayFragment(), "ViewPagerPhotoOfTheDayFragment")
+                R.id.action_settings -> navigateTo(SettingsFragment(), "")
+                R.id.action_earth -> navigateTo(ViewPagerEarthFragment(), "")
+                R.id.action_mars -> navigateTo(MarsFragment(), "")
             }
             true
         }
     }
 
-    private fun navigateTo(fragment: Fragment) {
+    private fun navigateTo(fragment: Fragment, tag: String) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
+            .replace(R.id.fragment_container, fragment, tag)
             .commitAllowingStateLoss()
     }
 

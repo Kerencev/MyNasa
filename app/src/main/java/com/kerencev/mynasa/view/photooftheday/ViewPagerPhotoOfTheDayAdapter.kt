@@ -8,9 +8,9 @@ class ViewPagerPhotoOfTheDayAdapter(fragment: Fragment) :
     FragmentStateAdapter(fragment) {
 
     private val fragments = arrayOf(
-        MainFragment.newInstance(MyDate.getPastDays(0)),
-        MainFragment.newInstance(MyDate.getPastDays(1)),
-        MainFragment.newInstance(MyDate.getPastDays(2))
+        PhotoOfTheDayFragment.newInstance(MyDate.getPastDays(0)),
+        PhotoOfTheDayFragment.newInstance(MyDate.getPastDays(1)),
+        PhotoOfTheDayFragment.newInstance(MyDate.getPastDays(2))
     )
 
     override fun getItemCount(): Int {

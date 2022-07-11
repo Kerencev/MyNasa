@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.transition.*
 import coil.load
+import com.davemorrissey.labs.subscaleview.ImageSource
 import com.google.android.material.snackbar.Snackbar
 import com.kerencev.mynasa.R
 import com.kerencev.mynasa.data.retrofit.entities.pictureoftheday.PictureOfTheDayResponseData
@@ -20,9 +21,10 @@ import com.kerencev.mynasa.databinding.FragmentPhotoOfTheDayBinding
 import com.kerencev.mynasa.view.main.AppState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+
 const val BUNDLE_DATE_KEY = "BUNDLE_DATE_KEY"
 
-class MainFragment : Fragment() {
+class PhotoOfTheDayFragment : Fragment() {
     private val viewModel: PhotoOfTheDayViewModel by viewModel()
     private var _binding: FragmentPhotoOfTheDayBinding? = null
     private val binding get() = _binding!!
@@ -76,10 +78,7 @@ class MainFragment : Fragment() {
         with(binding) {
             animateAllContent() // Custom Animation
             progressBar.visibility = View.GONE
-            imgPhotoDay.load(pictureOfTheDayResponseData.hdurl) {
-                placeholder(R.drawable.nasa)
-                error(R.drawable.error)
-            }
+            imgPhotoDay.load(pictureOfTheDayResponseData.hdurl)
             tvPhotoDay.text = pictureOfTheDayResponseData.explanation
             imgPhotoDay.setOnClickListener {
                 zoomImage(it)
@@ -140,21 +139,19 @@ class MainFragment : Fragment() {
         when (tapFlag) {
             true -> {
                 params.height = ConstraintLayout.LayoutParams.MATCH_PARENT
-                imgPhotoDay.scaleType = ImageView.ScaleType.CENTER_CROP
             }
             false -> {
                 params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
-                imgPhotoDay.scaleType = ImageView.ScaleType.CENTER_INSIDE
             }
         }
         view.layoutParams = params
     }
 
     companion object {
-        fun newInstance(date: String): MainFragment {
+        fun newInstance(date: String): PhotoOfTheDayFragment {
             val bundle = Bundle()
             bundle.putString(BUNDLE_DATE_KEY, date)
-            val fragment = MainFragment()
+            val fragment = PhotoOfTheDayFragment()
             fragment.arguments = bundle
             return fragment
         }

@@ -33,16 +33,15 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <ImageView
+    <com.ortiz.touchview.TouchImageView
         android:id="@+id/img_photo_day"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_chip_group"
         android:contentDescription="@string/photo_of_the_day"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/inputLayout"
-        tools:src="@drawable/nasa" />
+        app:layout_constraintTop_toBottomOf="@id/inputLayout" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll"

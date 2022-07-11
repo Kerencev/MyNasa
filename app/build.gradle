@@ -42,7 +42,6 @@ android {
 }
 
 dependencies {
-
     //Koin
     implementation 'io.insert-koin:koin-android:3.0.2'
     //Retrofit
@@ -50,6 +49,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     //Coil image download
     implementation 'io.coil-kt:coil:2.1.0'
+    //Scale ImageView
+    implementation 'com.github.MikeOrtiz:TouchImageView:1.4.1'
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
