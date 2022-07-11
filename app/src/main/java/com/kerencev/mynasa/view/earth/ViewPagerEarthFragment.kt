@@ -45,6 +45,7 @@ class ViewPagerEarthFragment : Fragment() {
         )
         viewPager.adapter = adapter
         bindTabLayout(datesEarthPhotosResponse)
+        //TODO сделать viewPager.isUserInputEnabled = false, когда зумим картнку
     }
 
     private fun getEarthFragments(data: DatesEarthPhotosResponse, count: Int): List<EarthFragment> {

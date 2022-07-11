@@ -1,11 +1,16 @@
 package com.kerencev.mynasa.view.earth
 
 import android.os.Bundle
+import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.transition.*
 import coil.load
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -16,6 +21,7 @@ import com.kerencev.mynasa.data.retrofit.entities.photo.EarthPhotoDataResponse
 import com.kerencev.mynasa.databinding.FragmentEarthBinding
 import com.kerencev.mynasa.model.helpers.MyDate
 import com.kerencev.mynasa.view.main.AppState
+import com.kerencev.mynasa.view.photo.PhotoScaleFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 const val BUNDLE_KEY_DATE = "BUNDLE_KEY_DATE"
@@ -25,6 +31,7 @@ class EarthFragment : Fragment() {
     private var _binding: FragmentEarthBinding? = null
     private val binding get() = _binding!!
     private var date: String? = null
+    private var tapFlag = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,15 +49,40 @@ class EarthFragment : Fragment() {
         val observer = Observer<AppState> { renderData(it) }
         viewModel.earthPhotoData.observe(viewLifecycleOwner, observer)
         date?.let { viewModel.getEarthPhotoData(it) }
+
+        binding.imgPhotoEarth.setOnClickListener {
+            zoomImage(it)
+        }
+    }
+
+    private fun zoomImage(view: View) = with(binding) {
+        tapFlag = !tapFlag
+        val params = view.layoutParams as ConstraintLayout.LayoutParams
+        TransitionManager.beginDelayedTransition(main, Fade())
+        when (tapFlag) {
+            true -> {
+                tvInfo.visibility = View.GONE
+                chipGroup.visibility = View.GONE
+                params.height = ConstraintLayout.LayoutParams.MATCH_PARENT
+                //TODO сделать viewPager.isUserInputEnabled = false, когда зумим картнку
+            }
+            false -> {
+                tvInfo.visibility = View.VISIBLE
+                chipGroup.visibility = View.VISIBLE
+                params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
+            }
+        }
+        view.layoutParams = params
     }
 
     private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Success<*> -> {
+                val data = appState.data as EarthPhotoDataResponse
+                animateContent(duration = 300)
                 binding.progressBar.visibility = View.GONE
-                setInfoTitle(appState.data as EarthPhotoDataResponse)
-                loadImage(appState.data[0].image)
-                renderChipGroup(appState.data)
+                loadImage(data[0].image)
+                renderChipGroup(data)
             }
             is AppState.Loading -> {}
             is AppState.Error -> {
@@ -60,8 +92,13 @@ class EarthFragment : Fragment() {
         }
     }
 
-    private fun setInfoTitle(data: EarthPhotoDataResponse) {
-        binding.tvInfo.text = data[0].caption
+    private fun animateContent(duration: Long) {
+        val animateTransition = TransitionSet()
+        animateTransition.duration = duration
+        animateTransition.ordering = TransitionSet.ORDERING_TOGETHER
+        animateTransition.addTransition(Slide(Gravity.TOP))
+        animateTransition.addTransition(ChangeBounds())
+        TransitionManager.beginDelayedTransition(binding.main, animateTransition)
     }
 
     private fun loadImage(image: String) {

@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.davemorrissey.labs.subscaleview.ImageSource
 import com.kerencev.mynasa.databinding.FragmentPhotoBinding
 
 const val BUNDLE_IMAGE_URL_KEY = "BUNDLE_IMAGE_URL_KEY"
@@ -26,7 +25,6 @@ class PhotoScaleFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val imageUrl = arguments?.getString(BUNDLE_IMAGE_URL_KEY)
-        imageUrl?.let { binding.imageView.setImage(ImageSource.uri(it)) }
     }
 
     override fun onDestroyView() {

@@ -115,5 +115,6 @@
     <string name="photo_by_rover">Photo by rover</string>
     <string name="there_are_no_photos_on_this_date">There are no photos on this date</string>
     <string name="select_date">Select a date</string>
+    <string name="this_image_was_taken_by_nasa_s_epic_camera_onboard_the_noaa_dscovr_spacecraft">This image was taken by NASA\'s EPIC camera onboard the NOAA DSCOVR spacecraft</string>
 
 </resources>
