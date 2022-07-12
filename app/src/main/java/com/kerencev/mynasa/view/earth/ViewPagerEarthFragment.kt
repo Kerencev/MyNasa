@@ -10,6 +10,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.kerencev.mynasa.R
 import com.kerencev.mynasa.data.retrofit.entities.dates.DatesEarthPhotosResponse
 import com.kerencev.mynasa.databinding.ViewPagerPhotoOfTheDayBinding
+import com.kerencev.mynasa.view.animation.DepthPageTransformer
+import com.kerencev.mynasa.view.animation.ZoomOutPageTransformer
 import com.kerencev.mynasa.view.photo.PhotoFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -32,6 +34,7 @@ class ViewPagerEarthFragment : Fragment() {
         val observer = Observer<DatesEarthPhotosResponse?> { initAdapter(it) }
         viewModel.earthPhotosDatesData.observe(viewLifecycleOwner, observer)
         viewModel.getEarthPhotosDates()
+        viewPager.setPageTransformer(DepthPageTransformer())
     }
 
     private fun initAdapter(datesEarthPhotosResponse: DatesEarthPhotosResponse?) = with(binding) {

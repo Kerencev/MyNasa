@@ -9,6 +9,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kerencev.mynasa.R
 import com.kerencev.mynasa.databinding.ViewPagerPhotoOfTheDayBinding
+import com.kerencev.mynasa.view.animation.ZoomOutPageTransformer
 
 class ViewPagerPhotoOfTheDayFragment : Fragment() {
     private var _binding: ViewPagerPhotoOfTheDayBinding? = null
@@ -26,6 +27,7 @@ class ViewPagerPhotoOfTheDayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
         viewPager.adapter = ViewPagerPhotoOfTheDayAdapter(this@ViewPagerPhotoOfTheDayFragment)
+        viewPager.setPageTransformer(ZoomOutPageTransformer())
         bindTabLayout()
     }
 
