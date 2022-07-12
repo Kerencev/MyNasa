@@ -16,13 +16,13 @@ import com.google.android.material.snackbar.Snackbar
 import com.kerencev.mynasa.R
 import com.kerencev.mynasa.data.retrofit.entities.pictureoftheday.PictureOfTheDayResponseData
 import com.kerencev.mynasa.databinding.FragmentPhotoOfTheDayBinding
+import com.kerencev.mynasa.view.earth.OnImageClick
 import com.kerencev.mynasa.view.main.AppState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 const val BUNDLE_DATE_KEY = "BUNDLE_DATE_KEY"
 
-class PhotoOfTheDayFragment : Fragment() {
+class PhotoOfTheDayFragment(private val onImageClick: OnImageClick) : Fragment() {
     private val viewModel: PhotoOfTheDayViewModel by viewModel()
     private var _binding: FragmentPhotoOfTheDayBinding? = null
     private val binding get() = _binding!!
@@ -79,7 +79,8 @@ class PhotoOfTheDayFragment : Fragment() {
             imgPhotoDay.load(pictureOfTheDayResponseData.hdurl)
             tvPhotoDay.text = pictureOfTheDayResponseData.explanation
             imgPhotoDay.setOnClickListener {
-                zoomImage(it)
+//                zoomImage(it)
+                onImageClick.onClick(pictureOfTheDayResponseData.hdurl)
             }
             tvPhotoDay.setOnClickListener {
                 moveToTop()
@@ -146,10 +147,10 @@ class PhotoOfTheDayFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(date: String): PhotoOfTheDayFragment {
+        fun newInstance(date: String, onImageClick: OnImageClick): PhotoOfTheDayFragment {
             val bundle = Bundle()
             bundle.putString(BUNDLE_DATE_KEY, date)
-            val fragment = PhotoOfTheDayFragment()
+            val fragment = PhotoOfTheDayFragment(onImageClick)
             fragment.arguments = bundle
             return fragment
         }

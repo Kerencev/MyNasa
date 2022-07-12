@@ -57,6 +57,7 @@ class ViewPagerEarthFragment : Fragment() {
                 list.add(EarthFragment.newInstance(date, object : OnImageClick {
                     override fun onClick(imageUrl: String) {
                         parentFragmentManager.beginTransaction()
+//                            .setCustomAnimations(R.animator.to_left_in, R.animator.to_left_out, R.animator.to_right_in, R.animator.to_right_out)
                             .hide(this@ViewPagerEarthFragment)
                             .add(R.id.fragment_container, PhotoFragment.newInstance(imageUrl))
                             .addToBackStack(null)
