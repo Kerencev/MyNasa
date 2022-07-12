@@ -8,8 +8,8 @@ import com.kerencev.mynasa.R
 import com.kerencev.mynasa.model.helpers.SPreference
 import com.kerencev.mynasa.view.earth.ViewPagerEarthFragment
 import com.kerencev.mynasa.view.mars.MarsFragment
-import com.kerencev.mynasa.view.settings.SettingsFragment
 import com.kerencev.mynasa.view.photooftheday.ViewPagerPhotoOfTheDayFragment
+import com.kerencev.mynasa.view.settings.SettingsFragment
 
 const val THEME_MY_NASA = 0
 const val THEME_SPACE = 1

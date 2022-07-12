@@ -1,7 +1,6 @@
 package com.kerencev.mynasa.model.helpers
 
 import java.time.LocalDate
-import java.time.Year
 import java.time.format.DateTimeFormatter
 
 object MyDate {

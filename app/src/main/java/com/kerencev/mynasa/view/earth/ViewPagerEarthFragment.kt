@@ -27,7 +27,6 @@ class ViewPagerEarthFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
-
         val observer = Observer<DatesEarthPhotosResponse?> { initAdapter(it) }
         viewModel.earthPhotosDatesData.observe(viewLifecycleOwner, observer)
         viewModel.getEarthPhotosDates()
@@ -41,18 +40,22 @@ class ViewPagerEarthFragment : Fragment() {
 
         val adapter = ViewPagerEarthAdapter(
             fragment = this@ViewPagerEarthFragment,
-            data = getEarthFragments(datesEarthPhotosResponse, 20)
+            data = getEarthFragments(datesEarthPhotosResponse, 20),
         )
         viewPager.adapter = adapter
         bindTabLayout(datesEarthPhotosResponse)
-        //TODO сделать viewPager.isUserInputEnabled = false, когда зумим картнку
     }
 
     private fun getEarthFragments(data: DatesEarthPhotosResponse, count: Int): List<EarthFragment> {
         val list: ArrayList<EarthFragment> = ArrayList()
         for (i in 0 until count) {
             data[i]?.date?.let { date ->
-                list.add(EarthFragment.newInstance(date))
+                //Реализовываем интерфейс для того, что бы отключить переключение табов по свайпу при зуме картинки
+                list.add(EarthFragment.newInstance(date, object : OnItemClick {
+                    override fun onClick(tabLayoutIsUserInputEnabled: Boolean) {
+                        binding.viewPager.isUserInputEnabled = tabLayoutIsUserInputEnabled
+                    }
+                }))
             }
         }
         return list

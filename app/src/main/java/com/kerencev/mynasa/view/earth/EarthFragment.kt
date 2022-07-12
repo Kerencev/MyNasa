@@ -1,12 +1,10 @@
 package com.kerencev.mynasa.view.earth
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -21,12 +19,15 @@ import com.kerencev.mynasa.data.retrofit.entities.photo.EarthPhotoDataResponse
 import com.kerencev.mynasa.databinding.FragmentEarthBinding
 import com.kerencev.mynasa.model.helpers.MyDate
 import com.kerencev.mynasa.view.main.AppState
-import com.kerencev.mynasa.view.photo.PhotoScaleFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 const val BUNDLE_KEY_DATE = "BUNDLE_KEY_DATE"
 
-class EarthFragment : Fragment() {
+interface OnItemClick {
+    fun onClick(tabLayoutIsUserInputEnabled: Boolean)
+}
+
+class EarthFragment(private val onItemClick: OnItemClick) : Fragment() {
     private val viewModel: EarthViewModel by viewModel()
     private var _binding: FragmentEarthBinding? = null
     private val binding get() = _binding!!
@@ -64,12 +65,13 @@ class EarthFragment : Fragment() {
                 tvInfo.visibility = View.GONE
                 chipGroup.visibility = View.GONE
                 params.height = ConstraintLayout.LayoutParams.MATCH_PARENT
-                //TODO сделать viewPager.isUserInputEnabled = false, когда зумим картнку
+                onItemClick.onClick(false)
             }
             false -> {
                 tvInfo.visibility = View.VISIBLE
                 chipGroup.visibility = View.VISIBLE
                 params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
+                onItemClick.onClick(true)
             }
         }
         view.layoutParams = params
@@ -154,10 +156,10 @@ class EarthFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(date: String): EarthFragment {
+        fun newInstance(date: String, onItemClick: OnItemClick): EarthFragment {
             val bundle = Bundle()
             bundle.putString(BUNDLE_KEY_DATE, date)
-            val fragment = EarthFragment()
+            val fragment = EarthFragment(onItemClick)
             fragment.arguments = bundle
             return fragment
         }

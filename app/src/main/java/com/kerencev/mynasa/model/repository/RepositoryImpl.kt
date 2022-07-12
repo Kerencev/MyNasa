@@ -1,8 +1,8 @@
 package com.kerencev.mynasa.model.repository
 
 import com.kerencev.mynasa.BuildConfig
-import com.kerencev.mynasa.data.retrofit.RetrofitCallBack
 import com.kerencev.mynasa.data.retrofit.NasaAPI
+import com.kerencev.mynasa.data.retrofit.RetrofitCallBack
 import com.kerencev.mynasa.data.retrofit.entities.dates.DatesEarthPhotosResponse
 import com.kerencev.mynasa.data.retrofit.entities.mars.rovermanifest.MarsRoverManifestResponse
 import com.kerencev.mynasa.data.retrofit.entities.mars.roverphotos.RoverPhotosResponse
