@@ -5,10 +5,12 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.transition.*
+import androidx.transition.ChangeBounds
+import androidx.transition.Slide
+import androidx.transition.TransitionManager
+import androidx.transition.TransitionSet
 import coil.load
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -23,16 +25,16 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 const val BUNDLE_KEY_DATE = "BUNDLE_KEY_DATE"
 
-interface OnItemClick {
-    fun onClick(tabLayoutIsUserInputEnabled: Boolean)
+interface OnImageClick {
+    fun onClick(imageUrl: String)
 }
 
-class EarthFragment(private val onItemClick: OnItemClick) : Fragment() {
+class EarthFragment(private val onImageClick: OnImageClick) : Fragment() {
     private val viewModel: EarthViewModel by viewModel()
     private var _binding: FragmentEarthBinding? = null
     private val binding get() = _binding!!
     private var date: String? = null
-    private var tapFlag = false
+    private lateinit var currentImageUrl: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,31 +52,6 @@ class EarthFragment(private val onItemClick: OnItemClick) : Fragment() {
         val observer = Observer<AppState> { renderData(it) }
         viewModel.earthPhotoData.observe(viewLifecycleOwner, observer)
         date?.let { viewModel.getEarthPhotoData(it) }
-
-        binding.imgPhotoEarth.setOnClickListener {
-            zoomImage(it)
-        }
-    }
-
-    private fun zoomImage(view: View) = with(binding) {
-        tapFlag = !tapFlag
-        val params = view.layoutParams as ConstraintLayout.LayoutParams
-        TransitionManager.beginDelayedTransition(main, Fade())
-        when (tapFlag) {
-            true -> {
-                tvInfo.visibility = View.GONE
-                chipGroup.visibility = View.GONE
-                params.height = ConstraintLayout.LayoutParams.MATCH_PARENT
-                onItemClick.onClick(false)
-            }
-            false -> {
-                tvInfo.visibility = View.VISIBLE
-                chipGroup.visibility = View.VISIBLE
-                params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
-                onItemClick.onClick(true)
-            }
-        }
-        view.layoutParams = params
     }
 
     private fun renderData(appState: AppState) {
@@ -85,6 +62,9 @@ class EarthFragment(private val onItemClick: OnItemClick) : Fragment() {
                 binding.progressBar.visibility = View.GONE
                 loadImage(data[0].image)
                 renderChipGroup(data)
+                binding.imgPhotoEarth.setOnClickListener {
+                    onImageClick.onClick(currentImageUrl)
+                }
             }
             is AppState.Loading -> {}
             is AppState.Error -> {
@@ -109,6 +89,7 @@ class EarthFragment(private val onItemClick: OnItemClick) : Fragment() {
                 "/png/" +
                 image +
                 ".png?api_key=${BuildConfig.NASA_API_KEY}"
+        currentImageUrl = url
         binding.imgPhotoEarth.load(url) {
             placeholder(R.drawable.earth_place_holder)
             error(R.drawable.error)
@@ -156,7 +137,7 @@ class EarthFragment(private val onItemClick: OnItemClick) : Fragment() {
     }
 
     companion object {
-        fun newInstance(date: String, onItemClick: OnItemClick): EarthFragment {
+        fun newInstance(date: String, onItemClick: OnImageClick): EarthFragment {
             val bundle = Bundle()
             bundle.putString(BUNDLE_KEY_DATE, date)
             val fragment = EarthFragment(onItemClick)

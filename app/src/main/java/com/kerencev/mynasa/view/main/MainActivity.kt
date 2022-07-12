@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setCurrentTheme() {
-        when (val index = SPreference.getCurrentTheme(this)) {
+        when (SPreference.getCurrentTheme(this)) {
             0 -> {
                 setTheme(R.style.Theme_MyNasa)
             }

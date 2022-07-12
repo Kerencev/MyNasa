@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.google.android.material.tabs.TabLayoutMediator
+import com.kerencev.mynasa.R
 import com.kerencev.mynasa.data.retrofit.entities.dates.DatesEarthPhotosResponse
 import com.kerencev.mynasa.databinding.ViewPagerPhotoOfTheDayBinding
+import com.kerencev.mynasa.view.photo.PhotoFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ViewPagerEarthFragment : Fragment() {
@@ -37,7 +39,6 @@ class ViewPagerEarthFragment : Fragment() {
             // TODO Показать пользователю ошибку
             return
         }
-
         val adapter = ViewPagerEarthAdapter(
             fragment = this@ViewPagerEarthFragment,
             data = getEarthFragments(datesEarthPhotosResponse, 20),
@@ -50,10 +51,13 @@ class ViewPagerEarthFragment : Fragment() {
         val list: ArrayList<EarthFragment> = ArrayList()
         for (i in 0 until count) {
             data[i]?.date?.let { date ->
-                //Реализовываем интерфейс для того, что бы отключить переключение табов по свайпу при зуме картинки
-                list.add(EarthFragment.newInstance(date, object : OnItemClick {
-                    override fun onClick(tabLayoutIsUserInputEnabled: Boolean) {
-                        binding.viewPager.isUserInputEnabled = tabLayoutIsUserInputEnabled
+                list.add(EarthFragment.newInstance(date, object : OnImageClick {
+                    override fun onClick(imageUrl: String) {
+                        parentFragmentManager.beginTransaction()
+                            .hide(this@ViewPagerEarthFragment)
+                            .add(R.id.fragment_container, PhotoFragment.newInstance(imageUrl))
+                            .addToBackStack(null)
+                            .commitAllowingStateLoss()
                     }
                 }))
             }
