@@ -1,25 +1,27 @@
 package com.kerencev.mynasa.view.main
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kerencev.mynasa.R
+import com.kerencev.mynasa.databinding.ActivityMainBinding
 import com.kerencev.mynasa.model.helpers.SPreference
 import com.kerencev.mynasa.view.earth.ViewPagerEarthFragment
 import com.kerencev.mynasa.view.mars.MarsFragment
 import com.kerencev.mynasa.view.photooftheday.ViewPagerPhotoOfTheDayFragment
 import com.kerencev.mynasa.view.settings.SettingsFragment
 
-const val THEME_MY_NASA = 0
-const val THEME_SPACE = 1
+class MainActivity : AppCompatActivity(), BottomNavigationHandler {
 
-class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setCurrentTheme()
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
@@ -32,7 +34,10 @@ class MainActivity : AppCompatActivity() {
     private fun setBottomNavigationClicks() {
         findViewById<BottomNavigationView>(R.id.bottom_navigation).setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.action_photo_of_the_day -> navigateTo(ViewPagerPhotoOfTheDayFragment(), "ViewPagerPhotoOfTheDayFragment")
+                R.id.action_photo_of_the_day -> navigateTo(
+                    ViewPagerPhotoOfTheDayFragment(),
+                    "ViewPagerPhotoOfTheDayFragment"
+                )
                 R.id.action_settings -> navigateTo(SettingsFragment(), "")
                 R.id.action_earth -> navigateTo(ViewPagerEarthFragment(), "")
                 R.id.action_mars -> navigateTo(MarsFragment(), "")
@@ -55,6 +60,20 @@ class MainActivity : AppCompatActivity() {
             1 -> {
                 setTheme(R.style.ThemeSpace)
             }
+        }
+    }
+
+    override fun isShowBottomNavigation(isShow: Boolean) {
+        when (isShow) {
+            true -> binding.bottomNavigation.visibility = View.VISIBLE
+            false -> binding.bottomNavigation.visibility = View.GONE
+        }
+    }
+
+    override fun isShowSystemBar(isShow: Boolean) {
+        when (isShow) {
+            true -> window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
+            false -> window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         }
     }
 }

@@ -8,12 +8,22 @@ import androidx.fragment.app.Fragment
 import coil.load
 import com.kerencev.mynasa.R
 import com.kerencev.mynasa.databinding.FragmentPhotoBinding
+import com.kerencev.mynasa.view.main.BottomNavigationHandler
+
 
 const val BUNDLE_KEY_IMAGE_URL = "BUNDLE_KEY_IMAGE_URL"
 
 class PhotoFragment : Fragment() {
     private var _binding: FragmentPhotoBinding? = null
     private val binding get() = _binding!!
+    private var mainActivity: BottomNavigationHandler? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mainActivity = (activity as? BottomNavigationHandler)
+        mainActivity?.isShowBottomNavigation(false)
+        mainActivity?.isShowSystemBar(false)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,6 +48,8 @@ class PhotoFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        mainActivity?.isShowBottomNavigation(true)
+        mainActivity?.isShowSystemBar(true)
     }
 
     companion object {

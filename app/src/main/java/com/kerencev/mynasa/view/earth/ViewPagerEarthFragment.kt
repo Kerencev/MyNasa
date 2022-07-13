@@ -11,7 +11,6 @@ import com.kerencev.mynasa.R
 import com.kerencev.mynasa.data.retrofit.entities.dates.DatesEarthPhotosResponse
 import com.kerencev.mynasa.databinding.ViewPagerPhotoOfTheDayBinding
 import com.kerencev.mynasa.view.animation.DepthPageTransformer
-import com.kerencev.mynasa.view.animation.ZoomOutPageTransformer
 import com.kerencev.mynasa.view.photo.PhotoFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
