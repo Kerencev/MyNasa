@@ -15,6 +15,7 @@ import com.kerencev.mynasa.data.retrofit.entities.mars.roverphotos.RoverPhotosRe
 import com.kerencev.mynasa.databinding.FragmentMarsBinding
 import com.kerencev.mynasa.model.helpers.MyDate
 import com.kerencev.mynasa.view.main.AppState
+import com.kerencev.mynasa.view.photo.PhotoFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MarsFragment : Fragment() {
@@ -73,7 +74,13 @@ class MarsFragment : Fragment() {
                     showSnackBarEmptyData()
                     return
                 }
-                val adapter = MarsPhotoAdapter()
+                val adapter = MarsPhotoAdapter { imageUrl ->
+                    parentFragmentManager.beginTransaction()
+                        .hide(this)
+                        .add(R.id.fragment_container, PhotoFragment.newInstance(imageUrl))
+                        .addToBackStack(null)
+                        .commitAllowingStateLoss()
+                }
                 binding.recycler.adapter = adapter
                 adapter.setData(data.photos)
                 binding.tvInfoDate.text = "Earth date: ${data.photos[0].earth_date}\n" +

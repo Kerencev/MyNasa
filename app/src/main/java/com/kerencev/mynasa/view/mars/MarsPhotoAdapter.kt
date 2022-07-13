@@ -9,7 +9,12 @@ import coil.load
 import com.kerencev.mynasa.R
 import com.kerencev.mynasa.data.retrofit.entities.mars.roverphotos.Photo
 
-class MarsPhotoAdapter : RecyclerView.Adapter<MarsPhotoAdapter.MarsPhotoViewHolder>() {
+fun interface OnPhotoClick {
+    fun onClick(imageUrl: String)
+}
+
+class MarsPhotoAdapter(private val onPhotoClick: OnPhotoClick) :
+    RecyclerView.Adapter<MarsPhotoAdapter.MarsPhotoViewHolder>() {
 
     private val data: ArrayList<Photo> = ArrayList()
 
@@ -22,6 +27,9 @@ class MarsPhotoAdapter : RecyclerView.Adapter<MarsPhotoAdapter.MarsPhotoViewHold
     override fun onBindViewHolder(holder: MarsPhotoViewHolder, position: Int) {
         holder.image.load(data[position].img_src) {
             placeholder(R.drawable.bg_mars)
+        }
+        holder.image.setOnClickListener {
+            onPhotoClick.onClick(data[position].img_src)
         }
     }
 
