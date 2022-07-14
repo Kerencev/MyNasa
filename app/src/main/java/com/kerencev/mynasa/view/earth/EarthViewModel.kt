@@ -30,6 +30,7 @@ class EarthViewModel(private val repository: Repository) : ViewModel() {
     }
 
     fun getEarthPhotoData(date: String) {
+        _earthPhotoData.value = AppState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             repository.getEarthPhotosData(date, object : RetrofitCallBack<EarthPhotoDataResponse> {
                 override fun response(data: EarthPhotoDataResponse?) {

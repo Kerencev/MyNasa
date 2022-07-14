@@ -6,29 +6,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_info"
-        android:layout_width="wrap_content"
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="@dimen/padding_tv_info"
-        android:text="@string/this_image_was_taken_by_nasa_s_epic_camera_onboard_the_noaa_dscovr_spacecraft"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-        app:layout_constraintBottom_toTopOf="@id/img_photo_earth"
+        android:layout_margin="@dimen/margin_progress_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/progress_bar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.ortiz.touchview.TouchImageView
         android:id="@+id/img_photo_earth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="@string/photo_of_earth"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/earth_place_holder" />
+        app:layout_constraintTop_toBottomOf="@id/progress_bar"
+        android:src="@drawable/earth_place_holder" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/img_barrier"
@@ -53,16 +48,6 @@
             android:paddingHorizontal="@dimen/padding_horizontal_chip_group"
             app:selectionRequired="true"
             app:singleSelection="true" />
-
     </HorizontalScrollView>
-
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="@dimen/margin_progress_bar"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

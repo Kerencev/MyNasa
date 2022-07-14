@@ -25,11 +25,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 const val BUNDLE_KEY_DATE = "BUNDLE_KEY_DATE"
 
-interface OnImageClick {
-    fun onClick(imageUrl: String)
+interface ViewPagerHandler {
+    fun onImageClick(imageUrl: String)
 }
 
-class EarthFragment(private val onImageClick: OnImageClick) : Fragment() {
+class EarthFragment(private val viewPagerHandler: ViewPagerHandler) : Fragment() {
     private val viewModel: EarthViewModel by viewModel()
     private var _binding: FragmentEarthBinding? = null
     private val binding get() = _binding!!
@@ -63,10 +63,12 @@ class EarthFragment(private val onImageClick: OnImageClick) : Fragment() {
                 loadImage(data[0].image)
                 renderChipGroup(data)
                 binding.imgPhotoEarth.setOnClickListener {
-                    onImageClick.onClick(currentImageUrl)
+                    viewPagerHandler.onImageClick(currentImageUrl)
                 }
             }
-            is AppState.Loading -> {}
+            is AppState.Loading -> {
+                binding.progressBar.visibility = View.VISIBLE
+            }
             is AppState.Error -> {
                 binding.progressBar.visibility = View.GONE
                 showSnackBarError()
@@ -137,7 +139,7 @@ class EarthFragment(private val onImageClick: OnImageClick) : Fragment() {
     }
 
     companion object {
-        fun newInstance(date: String, onItemClick: OnImageClick): EarthFragment {
+        fun newInstance(date: String, onItemClick: ViewPagerHandler): EarthFragment {
             val bundle = Bundle()
             bundle.putString(BUNDLE_KEY_DATE, date)
             val fragment = EarthFragment(onItemClick)

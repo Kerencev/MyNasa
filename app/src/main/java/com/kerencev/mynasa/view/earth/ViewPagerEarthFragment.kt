@@ -9,14 +9,14 @@ import androidx.lifecycle.Observer
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kerencev.mynasa.R
 import com.kerencev.mynasa.data.retrofit.entities.dates.DatesEarthPhotosResponse
-import com.kerencev.mynasa.databinding.ViewPagerPhotoOfTheDayBinding
+import com.kerencev.mynasa.databinding.FragmentEartViewPagerBinding
 import com.kerencev.mynasa.view.animation.DepthPageTransformer
 import com.kerencev.mynasa.view.photo.PhotoFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ViewPagerEarthFragment : Fragment() {
     private val viewModel: EarthViewModel by viewModel()
-    private var _binding: ViewPagerPhotoOfTheDayBinding? = null
+    private var _binding: FragmentEartViewPagerBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -24,7 +24,7 @@ class ViewPagerEarthFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = ViewPagerPhotoOfTheDayBinding.inflate(inflater, container, false)
+        _binding = FragmentEartViewPagerBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -53,10 +53,9 @@ class ViewPagerEarthFragment : Fragment() {
         val list: ArrayList<EarthFragment> = ArrayList()
         for (i in 0 until count) {
             data[i]?.date?.let { date ->
-                list.add(EarthFragment.newInstance(date, object : OnImageClick {
-                    override fun onClick(imageUrl: String) {
+                list.add(EarthFragment.newInstance(date, object : ViewPagerHandler {
+                    override fun onImageClick(imageUrl: String) {
                         parentFragmentManager.beginTransaction()
-//                            .setCustomAnimations(R.animator.to_left_in, R.animator.to_left_out, R.animator.to_right_in, R.animator.to_right_out)
                             .hide(this@ViewPagerEarthFragment)
                             .add(R.id.fragment_container, PhotoFragment.newInstance(imageUrl))
                             .addToBackStack(null)

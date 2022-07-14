@@ -15,13 +15,13 @@ import com.google.android.material.snackbar.Snackbar
 import com.kerencev.mynasa.R
 import com.kerencev.mynasa.data.retrofit.entities.pictureoftheday.PictureOfTheDayResponseData
 import com.kerencev.mynasa.databinding.FragmentPhotoOfTheDayBinding
-import com.kerencev.mynasa.view.earth.OnImageClick
+import com.kerencev.mynasa.view.earth.ViewPagerHandler
 import com.kerencev.mynasa.view.main.AppState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 const val BUNDLE_DATE_KEY = "BUNDLE_DATE_KEY"
 
-class PhotoOfTheDayFragment(private val onImageClick: OnImageClick) : Fragment() {
+class PhotoOfTheDayFragment(private val viewPagerHandler: ViewPagerHandler) : Fragment() {
     private val viewModel: PhotoOfTheDayViewModel by viewModel()
     private var _binding: FragmentPhotoOfTheDayBinding? = null
     private val binding get() = _binding!!
@@ -73,10 +73,12 @@ class PhotoOfTheDayFragment(private val onImageClick: OnImageClick) : Fragment()
         with(binding) {
             animateAllContent() // Custom Animation
             progressBar.visibility = View.GONE
-            imgPhotoDay.load(pictureOfTheDayResponseData.hdurl)
+            imgPhotoDay.load(pictureOfTheDayResponseData.hdurl) {
+                placeholder(R.drawable.nasa)
+            }
             tvPhotoDay.text = pictureOfTheDayResponseData.explanation
             imgPhotoDay.setOnClickListener {
-                onImageClick.onClick(pictureOfTheDayResponseData.hdurl)
+                viewPagerHandler.onImageClick(pictureOfTheDayResponseData.hdurl)
             }
         }
 
@@ -101,10 +103,10 @@ class PhotoOfTheDayFragment(private val onImageClick: OnImageClick) : Fragment()
     }
 
     companion object {
-        fun newInstance(date: String, onImageClick: OnImageClick): PhotoOfTheDayFragment {
+        fun newInstance(date: String, viewPagerHandler: ViewPagerHandler): PhotoOfTheDayFragment {
             val bundle = Bundle()
             bundle.putString(BUNDLE_DATE_KEY, date)
-            val fragment = PhotoOfTheDayFragment(onImageClick)
+            val fragment = PhotoOfTheDayFragment(viewPagerHandler)
             fragment.arguments = bundle
             return fragment
         }

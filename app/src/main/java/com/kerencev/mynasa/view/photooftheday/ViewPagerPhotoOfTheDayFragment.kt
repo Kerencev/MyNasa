@@ -11,7 +11,7 @@ import com.kerencev.mynasa.R
 import com.kerencev.mynasa.databinding.ViewPagerPhotoOfTheDayBinding
 import com.kerencev.mynasa.model.helpers.MyDate
 import com.kerencev.mynasa.view.animation.ZoomOutPageTransformer
-import com.kerencev.mynasa.view.earth.OnImageClick
+import com.kerencev.mynasa.view.earth.ViewPagerHandler
 import com.kerencev.mynasa.view.photo.PhotoFragment
 
 class ViewPagerPhotoOfTheDayFragment : Fragment() {
@@ -48,8 +48,8 @@ class ViewPagerPhotoOfTheDayFragment : Fragment() {
             result.add(
                 PhotoOfTheDayFragment.newInstance(
                     MyDate.getPastDays(i.toLong()),
-                    object : OnImageClick {
-                        override fun onClick(imageUrl: String) {
+                    object : ViewPagerHandler {
+                        override fun onImageClick(imageUrl: String) {
                             parentFragmentManager.beginTransaction()
                                 .hide(this@ViewPagerPhotoOfTheDayFragment)
                                 .add(R.id.fragment_container, PhotoFragment.newInstance(imageUrl))
