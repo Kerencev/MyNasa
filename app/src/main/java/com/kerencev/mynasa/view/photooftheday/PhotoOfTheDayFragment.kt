@@ -38,7 +38,6 @@ class PhotoOfTheDayFragment(private val onImageClick: OnImageClick) : Fragment()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
-
         date = arguments?.getString(BUNDLE_DATE_KEY)
         val pictureOfTheDayObserver = Observer<AppState> { renderData(it) }
         viewModel.pictureOfTheDayData.observe(viewLifecycleOwner, pictureOfTheDayObserver)

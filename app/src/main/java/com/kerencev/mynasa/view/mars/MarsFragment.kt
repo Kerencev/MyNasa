@@ -74,16 +74,12 @@ class MarsFragment : Fragment() {
                     showSnackBarEmptyData()
                     return
                 }
-                val listOfImageUrl: ArrayList<String> = ArrayList()
-                data.photos.forEach {
-                    listOfImageUrl.add(it.img_src)
-                }
                 val adapter = MarsPhotoAdapter { imageUrl ->
                     parentFragmentManager.beginTransaction()
                         .hide(this)
                         .add(
                             R.id.fragment_container,
-                            MarsPhotoViewPagerFragment.newInstance(listOfImageUrl = listOfImageUrl)
+                            PhotoFragment.newInstance(imageUrl)
                         )
                         .addToBackStack(null)
                         .commitAllowingStateLoss()
