@@ -25,6 +25,7 @@
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/drawable/ic_wikipedia.xml" value="0.1505" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/drawable/selector_background_chip.xml" value="0.1505" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/drawable/selector_background_chip_space_theme.xml" value="0.1505" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/drawable/shape.xml" value="0.1465" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/drawable/swipe_indicator_active.xml" value="0.124" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/drawable/swipe_indicator_passive.xml" value="0.1505" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/activity_main.xml" value="0.2361111111111111" />
@@ -34,7 +35,7 @@
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_mars.xml" value="0.264" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_mars_photo_view_pager.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_photo.xml" value="0.1" />
-        <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_photo_of_the_day.xml" value="0.2" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_photo_of_the_day.xml" value="0.25888594164456236" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_settings.xml" value="0.253125" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/mars_photo_item.xml" value="0.253125" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/view_pager_photo_of_the_day.xml" value="0.253125" />

@@ -15,12 +15,14 @@
         <!-- Customize your theme here. -->
         <item name="chipStyle">@style/ChipStyleDefaultTheme</item>
         <item name="menuItemColor">@color/black</item>
+        <item name="bottomSheetBackground">@color/extra_light_gray</item>
         <item name="bottomNavigationStyle">@style/BottomNavigationMyNasa</item>
     </style>
 
     <!-- Space theme -->
     <style name="ThemeSpace" parent="Theme.Material3.Dark.NoActionBar">
         <item name="menuItemColor">@color/white</item>
+        <item name="bottomSheetBackground">#FF131313</item>
         <item name="chipStyle">@style/ChipStyleSpaceTheme</item>
         <item name="android:textViewStyle">@style/TextViewSpaceTheme</item>
         <item name="bottomNavigationStyle">@style/BottomNavigationSpaceTheme</item>

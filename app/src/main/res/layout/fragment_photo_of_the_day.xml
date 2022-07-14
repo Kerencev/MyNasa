@@ -33,33 +33,61 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.ortiz.touchview.TouchImageView
-        android:id="@+id/img_photo_day"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_chip_group"
-        android:contentDescription="@string/photo_of_the_day"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/inputLayout" />
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/scroll"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/img_photo_day">
+        app:layout_constraintTop_toBottomOf="@id/inputLayout">
 
-        <TextView
-            android:id="@+id/tv_photo_day"
+        <com.ortiz.touchview.TouchImageView
+            android:id="@+id/img_photo_day"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_chip_group"
-            tools:text="@string/large_text" />
+            android:contentDescription="@string/photo_of_the_day"
+            android:src="@drawable/nasa"
+            app:layout_behavior=".view.behaviors.ImageViewBehavior" />
 
-    </androidx.core.widget.NestedScrollView>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottomSheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_horizontal_bottom_sheet"
+            android:background="@drawable/background_bottom_sheet"
+
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+            <View
+                android:id="@+id/bottomSheetLine"
+                android:layout_width="@dimen/width_bottom_sheet_icon"
+                android:layout_height="@dimen/height_bottom_sheet_icon"
+                android:layout_marginTop="@dimen/margin_top_bottom_sheet_icon"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/scroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top_nested_scroll_bottom_sheet"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/bottomSheetLine">
+
+                <TextView
+                    android:id="@+id/tv_photo_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_chip_group"
+                    tools:text="@string/large_text" />
+
+            </androidx.core.widget.NestedScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

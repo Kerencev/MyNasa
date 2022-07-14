@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#FF9E9292</color>
     <color name="light_gray">#FFDDD2D2</color>
+    <color name="extra_light_gray">#FFF4F0F0</color>
     <color name="dracula_gray">#FF2B2B2B</color>
     <color name="dark_gray">#222121</color>
     <color name="toolbar_theme_my_nasa">#3F51B5</color>

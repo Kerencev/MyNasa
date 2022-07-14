@@ -3,14 +3,13 @@ package com.kerencev.mynasa.view.photooftheday
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.transition.*
+import androidx.transition.ChangeBounds
+import androidx.transition.Slide
+import androidx.transition.TransitionManager
+import androidx.transition.TransitionSet
 import coil.load
 import com.google.android.material.snackbar.Snackbar
 import com.kerencev.mynasa.R
@@ -27,7 +26,6 @@ class PhotoOfTheDayFragment(private val onImageClick: OnImageClick) : Fragment()
     private var _binding: FragmentPhotoOfTheDayBinding? = null
     private val binding get() = _binding!!
     private var date: String? = null
-    private var tapFlag = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -79,30 +77,9 @@ class PhotoOfTheDayFragment(private val onImageClick: OnImageClick) : Fragment()
             imgPhotoDay.load(pictureOfTheDayResponseData.hdurl)
             tvPhotoDay.text = pictureOfTheDayResponseData.explanation
             imgPhotoDay.setOnClickListener {
-//                zoomImage(it)
                 onImageClick.onClick(pictureOfTheDayResponseData.hdurl)
             }
-            tvPhotoDay.setOnClickListener {
-                moveToTop()
-            }
         }
-
-    private fun moveToTop() = with(binding) {
-        tapFlag = !tapFlag
-        val params = scroll.layoutParams as ConstraintLayout.LayoutParams
-        TransitionManager.beginDelayedTransition(binding.main)
-        when (tapFlag) {
-            true -> {
-                params.topToBottom = R.id.inputLayout
-                imgPhotoDay.visibility = View.GONE
-            }
-            false -> {
-                params.topToBottom = R.id.img_photo_day
-                imgPhotoDay.visibility = View.VISIBLE
-            }
-        }
-        scroll.layoutParams = params
-    }
 
     private fun showSnackBarError() {
         binding.progressBar.visibility = View.GONE
@@ -122,28 +99,6 @@ class PhotoOfTheDayFragment(private val onImageClick: OnImageClick) : Fragment()
         animateTransition.addTransition(Slide(Gravity.TOP))
         animateTransition.addTransition(ChangeBounds())
         TransitionManager.beginDelayedTransition(binding.main, animateTransition)
-    }
-
-    private fun animateImageZoom() {
-        val transitionSet = TransitionSet()
-        transitionSet.addTransition(ChangeBounds())
-        transitionSet.addTransition(ChangeImageTransform())
-        TransitionManager.beginDelayedTransition(binding.main, transitionSet)
-    }
-
-    private fun zoomImage(view: View) = with(binding) {
-        tapFlag = !tapFlag
-        val params = view.layoutParams as ConstraintLayout.LayoutParams
-        animateImageZoom()
-        when (tapFlag) {
-            true -> {
-                params.height = ConstraintLayout.LayoutParams.MATCH_PARENT
-            }
-            false -> {
-                params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
-            }
-        }
-        view.layoutParams = params
     }
 
     companion object {

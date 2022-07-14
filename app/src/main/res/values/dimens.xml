@@ -10,4 +10,9 @@
     <dimen name="padding_collapsing_toolbar_title">16dp</dimen>
     <dimen name="padding_tv_date_fragment_mars">12dp</dimen>
     <dimen name="margin_progress_bar">12dp</dimen>
+    <dimen name="margin_horizontal_bottom_sheet">4dp</dimen>
+    <dimen name="width_bottom_sheet_icon">24dp</dimen>
+    <dimen name="height_bottom_sheet_icon">1dp</dimen>
+    <dimen name="margin_top_bottom_sheet_icon">4dp</dimen>
+    <dimen name="margin_top_nested_scroll_bottom_sheet">4dp</dimen>
 </resources>

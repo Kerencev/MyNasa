@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="menuItemColor" format="color"/>
+    <color name="bottom_sheet_background">#FF131313</color>
+    <attr name="bottomSheetBackground"></attr>
 </resources>
