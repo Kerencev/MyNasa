@@ -1,6 +1,7 @@
 package com.kerencev.mynasa.view.recycler
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kerencev.mynasa.databinding.RecyclerItemEarthBinding
@@ -8,13 +9,13 @@ import com.kerencev.mynasa.databinding.RecyclerItemHeaderBinding
 import com.kerencev.mynasa.databinding.RecyclerItemMarsBinding
 
 class RecyclerAdapter(private val listData: List<Data>) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         return listData[position].type
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerAdapter.BaseViewHolder {
         return when (viewType) {
             TYPE_EARTH -> {
                 val binding = RecyclerItemEarthBinding.inflate(LayoutInflater.from(parent.context))
@@ -31,26 +32,37 @@ class RecyclerAdapter(private val listData: List<Data>) :
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
+    override fun onBindViewHolder(holder: RecyclerAdapter.BaseViewHolder, position: Int) {
+        holder.bind(listData[position])
     }
 
     override fun getItemCount(): Int {
         return listData.size
     }
 
-    inner class MarsViewHolder(val binding: RecyclerItemMarsBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    abstract class BaseViewHolder(view: View) :
+        RecyclerView.ViewHolder(view) {
+        abstract fun bind(data: Data)
+    }
 
+    inner class MarsViewHolder(val binding: RecyclerItemMarsBinding) :
+        BaseViewHolder(binding.root) {
+        override fun bind(data: Data) {
+            binding.name.text = data.name
+        }
     }
 
     inner class EarthViewHolder(val binding: RecyclerItemEarthBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
+        BaseViewHolder(binding.root) {
+        override fun bind(data: Data) {
+            binding.name.text = data.name
+        }
     }
 
     inner class HeaderViewHolder(val binding: RecyclerItemHeaderBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
+        BaseViewHolder(binding.root) {
+        override fun bind(data: Data) {
+            binding.name.text = data.name
+        }
     }
 }
