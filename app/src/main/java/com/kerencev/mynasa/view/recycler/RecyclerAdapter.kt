@@ -17,18 +17,18 @@ fun interface RemoveItem {
 }
 
 class RecyclerAdapter(
-    private var listData: List<Data>,
+    private var listData: MutableList<Data>,
     private val callBackAdd: AddItem,
     private val callBackRemove: RemoveItem
 ) :
     RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>() {
 
-    fun setListDataAdd(listDataNew: List<Data>, position: Int) {
+    fun setListDataAdd(listDataNew: MutableList<Data>, position: Int) {
         listData = listDataNew
         notifyItemInserted(position)
     }
 
-    fun setListDataRemove(listDataNew: List<Data>, position: Int) {
+    fun setListDataRemove(listDataNew: MutableList<Data>, position: Int) {
         listData = listDataNew
         notifyItemRemoved(position)
     }
@@ -80,6 +80,20 @@ class RecyclerAdapter(
             removeItemImageView.setOnClickListener {
                 callBackRemove.remove(layoutPosition)
             }
+            moveItemUp.setOnClickListener {
+                if (layoutPosition == 1) return@setOnClickListener
+                listData.removeAt(layoutPosition).apply {
+                    listData.add(layoutPosition - 1, this)
+                }
+                notifyItemMoved(layoutPosition, layoutPosition - 1)
+            }
+            moveItemDown.setOnClickListener {
+                if (layoutPosition == listData.size - 1) return@setOnClickListener
+                listData.removeAt(layoutPosition).apply {
+                    listData.add(layoutPosition + 1, this)
+                }
+                notifyItemMoved(layoutPosition, layoutPosition + 1)
+            }
         }
     }
 
@@ -92,6 +106,20 @@ class RecyclerAdapter(
             }
             removeItemImageView.setOnClickListener {
                 callBackRemove.remove(layoutPosition)
+            }
+            moveItemUp.setOnClickListener {
+                if (layoutPosition == 1) return@setOnClickListener
+                listData.removeAt(layoutPosition).apply {
+                    listData.add(layoutPosition - 1, this)
+                }
+                notifyItemMoved(layoutPosition, layoutPosition - 1)
+            }
+            moveItemDown.setOnClickListener {
+                if (layoutPosition == listData.size - 1) return@setOnClickListener
+                listData.removeAt(layoutPosition).apply {
+                    listData.add(layoutPosition + 1, this)
+                }
+                notifyItemMoved(layoutPosition, layoutPosition + 1)
             }
         }
     }
