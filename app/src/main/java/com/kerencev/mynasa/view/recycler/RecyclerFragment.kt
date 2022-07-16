@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.kerencev.mynasa.databinding.FragmentRecyclerBinding
 
 class RecyclerFragment : Fragment() {
@@ -50,6 +51,7 @@ class RecyclerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         adapter = RecyclerAdapter(data, callBackAdd, callBackRemove)
         binding.recyclerView.adapter = adapter
+        ItemTouchHelper(ItemTouchHelperCallBack(adapter)).attachToRecyclerView(binding.recyclerView)
     }
 
     override fun onDestroyView() {

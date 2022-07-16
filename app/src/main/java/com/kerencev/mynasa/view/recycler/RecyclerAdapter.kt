@@ -3,7 +3,9 @@ package com.kerencev.mynasa.view.recycler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.kerencev.mynasa.R
 import com.kerencev.mynasa.databinding.RecyclerItemEarthBinding
 import com.kerencev.mynasa.databinding.RecyclerItemHeaderBinding
 import com.kerencev.mynasa.databinding.RecyclerItemMarsBinding
@@ -16,12 +18,22 @@ fun interface RemoveItem {
     fun remove(position: Int)
 }
 
+interface ItemTouchHelperAdapter {
+    fun onItemMove(fromPosition: Int, toPosition: Int)
+    fun onItemDismiss(position: Int)
+}
+
+interface ItemTouchHelperViewHolder {
+    fun onItemSelected()
+    fun onItemCleared()
+}
+
 class RecyclerAdapter(
     private var listData: MutableList<Pair<Data, Boolean>>,
     private val callBackAdd: AddItem,
     private val callBackRemove: RemoveItem
 ) :
-    RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>() {
+    RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>(), ItemTouchHelperAdapter {
 
     fun setListDataAdd(listDataNew: MutableList<Pair<Data, Boolean>>, position: Int) {
         listData = listDataNew
@@ -71,7 +83,7 @@ class RecyclerAdapter(
     }
 
     inner class MarsViewHolder(val binding: RecyclerItemMarsBinding) :
-        BaseViewHolder(binding.root) {
+        BaseViewHolder(binding.root), ItemTouchHelperViewHolder {
         override fun bind(data: Pair<Data, Boolean>) = with(binding) {
             name.text = data.first.name
             addItemImageView.setOnClickListener {
@@ -94,9 +106,8 @@ class RecyclerAdapter(
                 }
                 notifyItemMoved(layoutPosition, layoutPosition + 1)
             }
-
-            marsDescriptionTextView.visibility = if (listData[layoutPosition].second) View.VISIBLE else View.GONE
-
+            marsDescriptionTextView.visibility =
+                if (listData[layoutPosition].second) View.VISIBLE else View.GONE
             marsImageView.setOnClickListener {
                 listData[layoutPosition] = listData[layoutPosition].let {
                     it.first to !it.second
@@ -104,10 +115,18 @@ class RecyclerAdapter(
                 notifyItemChanged(layoutPosition)
             }
         }
+
+        override fun onItemSelected() {
+            binding.root.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.purple_700))
+        }
+
+        override fun onItemCleared() {
+            binding.root.setBackgroundColor(0)
+        }
     }
 
     inner class EarthViewHolder(val binding: RecyclerItemEarthBinding) :
-        BaseViewHolder(binding.root) {
+        BaseViewHolder(binding.root), ItemTouchHelperViewHolder {
         override fun bind(data: Pair<Data, Boolean>) = with(binding) {
             name.text = data.first.name
             addItemImageView.setOnClickListener {
@@ -131,6 +150,14 @@ class RecyclerAdapter(
                 notifyItemMoved(layoutPosition, layoutPosition + 1)
             }
         }
+
+        override fun onItemSelected() {
+            binding.root.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.purple_700))
+        }
+
+        override fun onItemCleared() {
+            binding.root.setBackgroundColor(0)
+        }
     }
 
     inner class HeaderViewHolder(val binding: RecyclerItemHeaderBinding) :
@@ -138,5 +165,16 @@ class RecyclerAdapter(
         override fun bind(data: Pair<Data, Boolean>) {
             binding.name.text = data.first.name
         }
+    }
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+        listData.removeAt(fromPosition).apply {
+            listData.add(toPosition, this)
+        }
+        notifyItemMoved(fromPosition, toPosition)
+    }
+
+    override fun onItemDismiss(position: Int) {
+        callBackRemove.remove(position)
     }
 }
