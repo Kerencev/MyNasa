@@ -17,24 +17,24 @@ fun interface RemoveItem {
 }
 
 class RecyclerAdapter(
-    private var listData: MutableList<Data>,
+    private var listData: MutableList<Pair<Data, Boolean>>,
     private val callBackAdd: AddItem,
     private val callBackRemove: RemoveItem
 ) :
     RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>() {
 
-    fun setListDataAdd(listDataNew: MutableList<Data>, position: Int) {
+    fun setListDataAdd(listDataNew: MutableList<Pair<Data, Boolean>>, position: Int) {
         listData = listDataNew
         notifyItemInserted(position)
     }
 
-    fun setListDataRemove(listDataNew: MutableList<Data>, position: Int) {
+    fun setListDataRemove(listDataNew: MutableList<Pair<Data, Boolean>>, position: Int) {
         listData = listDataNew
         notifyItemRemoved(position)
     }
 
     override fun getItemViewType(position: Int): Int {
-        return listData[position].type
+        return listData[position].first.type
     }
 
     override fun onCreateViewHolder(
@@ -67,13 +67,13 @@ class RecyclerAdapter(
 
     abstract class BaseViewHolder(view: View) :
         RecyclerView.ViewHolder(view) {
-        abstract fun bind(data: Data)
+        abstract fun bind(data: Pair<Data, Boolean>)
     }
 
     inner class MarsViewHolder(val binding: RecyclerItemMarsBinding) :
         BaseViewHolder(binding.root) {
-        override fun bind(data: Data) = with(binding) {
-            name.text = data.name
+        override fun bind(data: Pair<Data, Boolean>) = with(binding) {
+            name.text = data.first.name
             addItemImageView.setOnClickListener {
                 callBackAdd.add(layoutPosition, TYPE_MARS)
             }
@@ -94,13 +94,22 @@ class RecyclerAdapter(
                 }
                 notifyItemMoved(layoutPosition, layoutPosition + 1)
             }
+
+            marsDescriptionTextView.visibility = if (listData[layoutPosition].second) View.VISIBLE else View.GONE
+
+            marsImageView.setOnClickListener {
+                listData[layoutPosition] = listData[layoutPosition].let {
+                    it.first to !it.second
+                }
+                notifyItemChanged(layoutPosition)
+            }
         }
     }
 
     inner class EarthViewHolder(val binding: RecyclerItemEarthBinding) :
         BaseViewHolder(binding.root) {
-        override fun bind(data: Data) = with(binding) {
-            name.text = data.name
+        override fun bind(data: Pair<Data, Boolean>) = with(binding) {
+            name.text = data.first.name
             addItemImageView.setOnClickListener {
                 callBackAdd.add(layoutPosition, TYPE_EARTH)
             }
@@ -126,8 +135,8 @@ class RecyclerAdapter(
 
     inner class HeaderViewHolder(val binding: RecyclerItemHeaderBinding) :
         BaseViewHolder(binding.root) {
-        override fun bind(data: Data) {
-            binding.name.text = data.name
+        override fun bind(data: Pair<Data, Boolean>) {
+            binding.name.text = data.first.name
         }
     }
 }
