@@ -32,6 +32,7 @@
         android:background="?colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/removeItemImageView"
         app:srcCompat="@drawable/ic_plus_fab" />
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -42,6 +43,7 @@
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/addItemImageView"
+        app:layout_constraintBottom_toTopOf="@id/marsDescriptionTextView"
         app:srcCompat="@drawable/ic_archive" />
 
     <androidx.appcompat.widget.AppCompatImageView

@@ -8,14 +8,39 @@ import com.kerencev.mynasa.databinding.RecyclerItemEarthBinding
 import com.kerencev.mynasa.databinding.RecyclerItemHeaderBinding
 import com.kerencev.mynasa.databinding.RecyclerItemMarsBinding
 
-class RecyclerAdapter(private val listData: List<Data>) :
+fun interface AddItem {
+    fun add(position: Int, type: Int)
+}
+
+fun interface RemoveItem {
+    fun remove(position: Int)
+}
+
+class RecyclerAdapter(
+    private var listData: List<Data>,
+    private val callBackAdd: AddItem,
+    private val callBackRemove: RemoveItem
+) :
     RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>() {
+
+    fun setListDataAdd(listDataNew: List<Data>, position: Int) {
+        listData = listDataNew
+        notifyItemInserted(position)
+    }
+
+    fun setListDataRemove(listDataNew: List<Data>, position: Int) {
+        listData = listDataNew
+        notifyItemRemoved(position)
+    }
 
     override fun getItemViewType(position: Int): Int {
         return listData[position].type
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerAdapter.BaseViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): RecyclerAdapter.BaseViewHolder {
         return when (viewType) {
             TYPE_EARTH -> {
                 val binding = RecyclerItemEarthBinding.inflate(LayoutInflater.from(parent.context))
@@ -47,15 +72,27 @@ class RecyclerAdapter(private val listData: List<Data>) :
 
     inner class MarsViewHolder(val binding: RecyclerItemMarsBinding) :
         BaseViewHolder(binding.root) {
-        override fun bind(data: Data) {
-            binding.name.text = data.name
+        override fun bind(data: Data) = with(binding) {
+            name.text = data.name
+            addItemImageView.setOnClickListener {
+                callBackAdd.add(layoutPosition, TYPE_MARS)
+            }
+            removeItemImageView.setOnClickListener {
+                callBackRemove.remove(layoutPosition)
+            }
         }
     }
 
     inner class EarthViewHolder(val binding: RecyclerItemEarthBinding) :
         BaseViewHolder(binding.root) {
-        override fun bind(data: Data) {
-            binding.name.text = data.name
+        override fun bind(data: Data) = with(binding) {
+            name.text = data.name
+            addItemImageView.setOnClickListener {
+                callBackAdd.add(layoutPosition, TYPE_EARTH)
+            }
+            removeItemImageView.setOnClickListener {
+                callBackRemove.remove(layoutPosition)
+            }
         }
     }
 
