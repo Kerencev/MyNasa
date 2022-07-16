@@ -10,6 +10,7 @@ import com.kerencev.mynasa.databinding.ActivityMainBinding
 import com.kerencev.mynasa.model.helpers.SPreference
 import com.kerencev.mynasa.view.earth.ViewPagerEarthFragment
 import com.kerencev.mynasa.view.mars.MarsFragment
+import com.kerencev.mynasa.view.recycler.RecyclerFragment
 import com.kerencev.mynasa.view.photooftheday.ViewPagerPhotoOfTheDayFragment
 import com.kerencev.mynasa.view.settings.SettingsFragment
 
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationHandler {
                 R.id.action_settings -> navigateTo(SettingsFragment(), "")
                 R.id.action_earth -> navigateTo(ViewPagerEarthFragment(), "")
                 R.id.action_mars -> navigateTo(MarsFragment(), "")
+                R.id.action_moon -> navigateTo(RecyclerFragment(), "")
             }
             true
         }
@@ -73,7 +75,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationHandler {
     override fun isShowSystemBar(isShow: Boolean) {
         when (isShow) {
             true -> window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
-            false -> window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+            false -> window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         }
     }
 }

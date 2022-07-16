@@ -34,10 +34,15 @@
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_main.xml" value="0.264" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_mars.xml" value="0.264" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_mars_photo_view_pager.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_moon.xml" value="0.253125" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_photo.xml" value="0.1" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_photo_of_the_day.xml" value="0.25888594164456236" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_recycler.xml" value="0.11018518518518519" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_settings.xml" value="0.253125" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/mars_photo_item.xml" value="0.253125" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/recycler_item_earth.xml" value="0.264" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/recycler_item_header.xml" value="0.1" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/recycler_item_mars.xml" value="0.253125" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/view_pager_photo_of_the_day.xml" value="0.253125" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/menu/menu_bottom_app_bar.xml" value="0.25416666666666665" />
       </map>

@@ -116,5 +116,6 @@
     <string name="there_are_no_photos_on_this_date">There are no photos on this date</string>
     <string name="select_date">Select a date</string>
     <string name="this_image_was_taken_by_nasa_s_epic_camera_onboard_the_noaa_dscovr_spacecraft">This image was taken by NASA\'s EPIC camera onboard the NOAA DSCOVR spacecraft</string>
+    <string name="large_text_mars">Марс -- четвёртая по удалённости от Солнца и седьмая по размерам планета Солнечной системы. Названа в честь Марса -- древнеримского бога войны, соответствующего древнегреческому Аресу. Иногда Марс называют «красной планетой» из-за красноватого оттенка поверхности, придаваемого ей минералом маггемитом (оксидом железа).</string>
 
 </resources>
