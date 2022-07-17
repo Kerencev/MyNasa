@@ -3,12 +3,17 @@ package com.kerencev.mynasa.view.recycler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.kerencev.mynasa.R
 import com.kerencev.mynasa.databinding.RecyclerItemEarthBinding
 import com.kerencev.mynasa.databinding.RecyclerItemHeaderBinding
 import com.kerencev.mynasa.databinding.RecyclerItemMarsBinding
+import com.kerencev.mynasa.view.recycler.diffutil.Change
+import com.kerencev.mynasa.view.recycler.diffutil.DiffUtilCallback
+import com.kerencev.mynasa.view.recycler.diffutil.createCombinePayload
 
 fun interface AddItem {
     fun add(position: Int, type: Int)
@@ -34,6 +39,12 @@ class RecyclerAdapter(
     private val callBackRemove: RemoveItem
 ) :
     RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>(), ItemTouchHelperAdapter {
+
+    fun setListDataForDiffUtil(lisDataNew: MutableList<Pair<Data, Boolean>>) {
+        val diff = DiffUtil.calculateDiff(DiffUtilCallback(listData, lisDataNew))
+        diff.dispatchUpdatesTo(this)
+        listData = lisDataNew
+    }
 
     fun setListDataAdd(listDataNew: MutableList<Pair<Data, Boolean>>, position: Int) {
         listData = listDataNew
@@ -71,6 +82,21 @@ class RecyclerAdapter(
 
     override fun onBindViewHolder(holder: RecyclerAdapter.BaseViewHolder, position: Int) {
         holder.bind(listData[position])
+    }
+
+    override fun onBindViewHolder(
+        holder: BaseViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if (payloads.isEmpty()) {
+            super.onBindViewHolder(holder, position, payloads)
+        } else {
+            val createCombinePayload = createCombinePayload(payloads as List<Change<Pair<Data, Boolean>>>)
+            if (createCombinePayload.newData.first.name != createCombinePayload.oldData.first.name) {
+                holder.itemView.findViewById<TextView>(R.id.name).text = createCombinePayload.newData.first.name
+            }
+        }
     }
 
     override fun getItemCount(): Int {
