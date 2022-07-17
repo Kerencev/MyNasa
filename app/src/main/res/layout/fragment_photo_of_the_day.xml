@@ -88,6 +88,22 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/actionMatrix"
+            android:layout_width="@dimen/width_matrix_icon"
+            android:layout_height="@dimen/width_matrix_icon"
+            app:cardCornerRadius="@dimen/corner_radius_card_icon_matrix"
+            app:layout_behavior=".view.behaviors.IconMatrixBehavior">
+
+            <ImageView
+                android:id="@+id/img_user_neo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/padding_image_icon_matrix"
+                android:src="@drawable/user" />
+
+        </com.google.android.material.card.MaterialCardView>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

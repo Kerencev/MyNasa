@@ -10,6 +10,7 @@
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/drawable/ic_archive.xml" value="0.1505" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/drawable/ic_back_fab.xml" value="0.1505" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1505" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.1275" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.1505" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/drawable/ic_earth.xml" value="0.1505" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/drawable/ic_favourite_menu.xml" value="0.1505" />
@@ -36,7 +37,7 @@
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_mars_photo_view_pager.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_moon.xml" value="0.253125" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_photo.xml" value="0.1" />
-        <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_photo_of_the_day.xml" value="0.25888594164456236" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_photo_of_the_day.xml" value="0.3615916955017301" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_recycler.xml" value="0.264" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_settings.xml" value="0.253125" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/mars_photo_item.xml" value="0.253125" />
