@@ -17,4 +17,7 @@
     <dimen name="margin_top_nested_scroll_bottom_sheet">4dp</dimen>
     <dimen name="bottom_sheet_peek_height">120dp</dimen>
     <dimen name="margin_fab">32dp</dimen>
+    <dimen name="width_matrix_icon">52dp</dimen>
+    <dimen name="corner_radius_card_icon_matrix">50dp</dimen>
+    <dimen name="padding_image_icon_matrix">4dp</dimen>
 </resources>

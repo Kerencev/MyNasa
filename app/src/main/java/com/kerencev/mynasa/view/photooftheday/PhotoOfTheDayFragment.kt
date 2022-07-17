@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.text.toSpannable
+import androidx.core.text.toSpanned
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.transition.ChangeBounds
@@ -36,6 +37,8 @@ class PhotoOfTheDayFragment(private val viewPagerHandler: ViewPagerHandler) : Fr
     private val binding get() = _binding!!
     private var date: String? = null
     lateinit var spannableRainbow: SpannableString
+    lateinit var timer: CountDownTimer
+    private var matrixFlag = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,6 +66,7 @@ class PhotoOfTheDayFragment(private val viewPagerHandler: ViewPagerHandler) : Fr
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        timer.cancel()
     }
 
     private fun renderData(appState: AppState) = with(binding) {
@@ -86,18 +90,34 @@ class PhotoOfTheDayFragment(private val viewPagerHandler: ViewPagerHandler) : Fr
             imgPhotoDay.load(pictureOfTheDayResponseData.hdurl) {
                 placeholder(R.drawable.nasa)
             }
-            tvPhotoDay.text = addImageSpan(pictureOfTheDayResponseData.explanation)
-            spannableRainbow = SpannableString(tvPhotoDay.text.toSpannable())
-            rainbow(1)
+            val textWithImageSpan = addImageSpan(pictureOfTheDayResponseData.explanation)
+            tvPhotoDay.text = textWithImageSpan
 
             imgPhotoDay.setOnClickListener {
                 viewPagerHandler.onImageClick(pictureOfTheDayResponseData.hdurl)
+            }
+
+            spannableRainbow = SpannableString(tvPhotoDay.text.toSpannable())
+            rainbow(1)
+            actionMatrix.setOnClickListener {
+                matrixFlag = !matrixFlag
+                when (matrixFlag) {
+                    false -> {
+                        imgUserNeo.setImageResource(R.drawable.user)
+                        timer.cancel()
+                        tvPhotoDay.text = textWithImageSpan
+                    }
+                    true -> {
+                        imgUserNeo.setImageResource(R.drawable.matrix)
+                        timer.start()
+                    }
+                }
             }
         }
 
     fun rainbow(i: Int = 1) {
         var currentCount = i
-        val x = object : CountDownTimer(20000, 200) {
+        timer = object : CountDownTimer(20000, 200) {
             override fun onTick(millisUntilFinished: Long) {
                 colorText(currentCount)
                 currentCount = if (++currentCount > 5) 1 else currentCount
@@ -107,7 +127,6 @@ class PhotoOfTheDayFragment(private val viewPagerHandler: ViewPagerHandler) : Fr
                 rainbow(currentCount)
             }
         }
-        x.start()
     }
 
     private fun colorText(colorFirstNumber: Int) {
