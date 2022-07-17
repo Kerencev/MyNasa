@@ -13,4 +13,13 @@
     <color name="dracula_gray">#FF2B2B2B</color>
     <color name="dark_gray">#222121</color>
     <color name="toolbar_theme_my_nasa">#3F51B5</color>
+    <color name="red">#B6293F</color>
+    <color name="orange">#DD5A1E</color>
+    <color name="yellow">#B5943F</color>
+    <color name="green">#072006</color>
+    <color name="green1">#103E0E</color>
+    <color name="green2">#1B5519</color>
+    <color name="green3">#33A82F</color>
+    <color name="green4">#6CD569</color>
+    <color name="blue">#233CCA</color>
 </resources>
