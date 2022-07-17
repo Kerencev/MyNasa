@@ -3,7 +3,12 @@ package com.kerencev.mynasa.view.photooftheday
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ImageSpan
 import android.view.*
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.transition.ChangeBounds
@@ -76,7 +81,7 @@ class PhotoOfTheDayFragment(private val viewPagerHandler: ViewPagerHandler) : Fr
             imgPhotoDay.load(pictureOfTheDayResponseData.hdurl) {
                 placeholder(R.drawable.nasa)
             }
-            tvPhotoDay.text = pictureOfTheDayResponseData.explanation
+            tvPhotoDay.text = addImageSpan(pictureOfTheDayResponseData.explanation)
             imgPhotoDay.setOnClickListener {
                 viewPagerHandler.onImageClick(pictureOfTheDayResponseData.hdurl)
             }
@@ -92,6 +97,20 @@ class PhotoOfTheDayFragment(private val viewPagerHandler: ViewPagerHandler) : Fr
             )
             .setAction(R.string.reload) { date?.let { viewModel.getPictureByDate(it) } }
             .show()
+    }
+
+    private fun addImageSpan(text: String): SpannableString {
+        val newText = " \n$text"
+        val spannableString = SpannableString(newText)
+        val bitmap =
+            ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_info_24)!!.toBitmap()
+        spannableString.setSpan(
+            ImageSpan(requireContext(), bitmap),
+            0,
+            1,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        return spannableString
     }
 
     private fun animateAllContent() {
