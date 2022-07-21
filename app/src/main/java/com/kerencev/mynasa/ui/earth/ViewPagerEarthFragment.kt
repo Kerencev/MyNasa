@@ -14,8 +14,7 @@ import com.kerencev.mynasa.ui.animation.DepthPageTransformer
 import com.kerencev.mynasa.ui.photo.PhotoFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ViewPagerEarthFragment : Fragment() {
-    private val viewModel: EarthViewModel by viewModel()
+class ViewPagerEarthFragment(private val viewModel: EarthViewModel) : Fragment() {
     private var _binding: FragmentEartViewPagerBinding? = null
     private val binding get() = _binding!!
 
@@ -30,9 +29,7 @@ class ViewPagerEarthFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
-        val observer = Observer<DatesEarthPhotosResponse?> { initAdapter(it) }
-        viewModel.earthPhotosDatesData.observe(viewLifecycleOwner, observer)
-        viewModel.getEarthPhotosDates()
+        initAdapter(viewModel.earthPhotosDatesData.value)
         viewPager.setPageTransformer(DepthPageTransformer())
     }
 

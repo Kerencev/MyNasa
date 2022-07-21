@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgComet"
+        android:layout_width="@dimen/size_img_comet"
+        android:layout_height="@dimen/size_img_comet"
+        android:layout_gravity="end|top"
+        android:src="@drawable/comet"
+        android:visibility="invisible" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgStars"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/stars_new"
+        android:visibility="invisible" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgEarth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="@dimen/padding_earth_splash_screen"
+        android:src="@drawable/earth" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgAstronaut"
+        android:layout_width="@dimen/size_img_astronaut"
+        android:layout_height="@dimen/size_img_astronaut"
+        android:layout_gravity="bottom"
+        android:src="@drawable/astronaut" />
+
+</FrameLayout>

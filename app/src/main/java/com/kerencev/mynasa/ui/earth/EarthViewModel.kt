@@ -37,7 +37,7 @@ class EarthViewModel(private val repository: Repository) : ViewModel() {
                     when (data) {
                         null -> _earthPhotoData.postValue(AppState.Error)
                         else -> _earthPhotoData.postValue(
-                            AppState.Success<EarthPhotoDataResponse>(
+                            AppState.Success(
                                 data
                             )
                         )

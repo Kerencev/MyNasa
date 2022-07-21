@@ -8,6 +8,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kerencev.mynasa.R
 import com.kerencev.mynasa.databinding.ActivityMainBinding
 import com.kerencev.mynasa.model.helpers.SPreference
+import com.kerencev.mynasa.ui.earth.SplashScreenEarthFragment
 import com.kerencev.mynasa.ui.earth.ViewPagerEarthFragment
 import com.kerencev.mynasa.ui.mars.MarsFragment
 import com.kerencev.mynasa.ui.mars.SplashScreenMarsFragment
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationHandler {
                     "ViewPagerPhotoOfTheDayFragment"
                 )
                 R.id.action_settings -> navigateTo(SettingsFragment(), "")
-                R.id.action_earth -> navigateTo(ViewPagerEarthFragment(), "")
+                R.id.action_earth -> navigateTo(SplashScreenEarthFragment(), "")
                 R.id.action_mars -> navigateTo(SplashScreenMarsFragment(), "")
                 R.id.action_moon -> navigateTo(RecyclerFragment(), "")
             }
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationHandler {
 
     private fun navigateTo(fragment: Fragment, tag: String) {
         supportFragmentManager.beginTransaction()
+            .setCustomAnimations(R.animator.alpha_to_1, R.animator.alpha_to_0)
             .replace(R.id.fragment_container, fragment, tag)
             .commitAllowingStateLoss()
     }

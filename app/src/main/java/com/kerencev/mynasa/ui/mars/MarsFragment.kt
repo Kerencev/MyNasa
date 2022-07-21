@@ -56,7 +56,11 @@ class MarsFragment(private val viewModel: MarsViewModel) : Fragment() {
                 }
                 val dateForDatePicker = data.photos[0].earth_date.split("-")
                 binding.actionSetDate.setOnClickListener {
-                    showDatePicker(dateForDatePicker[0].toInt(), dateForDatePicker[1].toInt() - 1, dateForDatePicker[2].toInt())
+                    showDatePicker(
+                        dateForDatePicker[0].toInt(),
+                        dateForDatePicker[1].toInt() - 1,
+                        dateForDatePicker[2].toInt()
+                    )
                 }
                 val adapter = MarsPhotoAdapter { imageUrl ->
                     parentFragmentManager.beginTransaction()
@@ -91,7 +95,13 @@ class MarsFragment(private val viewModel: MarsViewModel) : Fragment() {
                 resources.getString(R.string.there_are_no_photos_on_this_date),
                 Snackbar.LENGTH_LONG
             )
-            .setAction(resources.getString(R.string.select_date)) { showDatePicker(year, month, day) }
+            .setAction(resources.getString(R.string.select_date)) {
+                showDatePicker(
+                    year,
+                    month,
+                    day
+                )
+            }
             .show()
         binding.actionSetDate.setOnClickListener {
             showDatePicker(year, month, day)

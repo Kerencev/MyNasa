@@ -21,4 +21,7 @@
     <dimen name="corner_radius_card_icon_matrix">50dp</dimen>
     <dimen name="padding_image_icon_matrix">4dp</dimen>
     <dimen name="size_rover_icon">200dp</dimen>
+    <dimen name="padding_earth_splash_screen">12dp</dimen>
+    <dimen name="size_img_comet">200dp</dimen>
+    <dimen name="size_img_astronaut">160dp</dimen>
 </resources>

@@ -6,7 +6,6 @@ import android.os.Looper
 import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
-import androidx.core.os.postDelayed
 import androidx.lifecycle.Observer
 import androidx.transition.ArcMotion
 import androidx.transition.ChangeBounds
@@ -26,7 +25,6 @@ class SplashScreenMarsFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        binding.imgMars.animate().setDuration(10000L).rotationY(360f).start()
 
         Handler(Looper.getMainLooper()).postDelayed({
             val changeBounds = ChangeBounds()
