@@ -8,12 +8,14 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.ImageSpan
-import android.view.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.text.toSpannable
-import androidx.core.text.toSpanned
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.transition.ChangeBounds
@@ -37,7 +39,7 @@ class PhotoOfTheDayFragment(private val viewPagerHandler: ViewPagerHandler) : Fr
     private val binding get() = _binding!!
     private var date: String? = null
     lateinit var spannableRainbow: SpannableString
-    lateinit var timer: CountDownTimer
+    private var timer: CountDownTimer? = null
     private var matrixFlag = false
 
     override fun onCreateView(
@@ -66,7 +68,7 @@ class PhotoOfTheDayFragment(private val viewPagerHandler: ViewPagerHandler) : Fr
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        timer.cancel()
+        timer?.cancel()
     }
 
     private fun renderData(appState: AppState) = with(binding) {
@@ -104,12 +106,12 @@ class PhotoOfTheDayFragment(private val viewPagerHandler: ViewPagerHandler) : Fr
                 when (matrixFlag) {
                     false -> {
                         imgUserNeo.setImageResource(R.drawable.user)
-                        timer.cancel()
+                        timer?.cancel()
                         tvPhotoDay.text = textWithImageSpan
                     }
                     true -> {
                         imgUserNeo.setImageResource(R.drawable.matrix)
-                        timer.start()
+                        timer?.start()
                     }
                 }
             }

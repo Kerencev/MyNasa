@@ -27,6 +27,7 @@
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/drawable/selector_background_chip.xml" value="0.1505" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/drawable/selector_background_chip_space_theme.xml" value="0.1505" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/drawable/shape.xml" value="0.1465" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/drawable/splash_background.xml" value="0.1275" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/drawable/swipe_indicator_active.xml" value="0.124" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/drawable/swipe_indicator_passive.xml" value="0.1505" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/activity_main.xml" value="0.2361111111111111" />
@@ -37,7 +38,7 @@
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_mars_photo_view_pager.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_moon.xml" value="0.253125" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_photo.xml" value="0.1" />
-        <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_photo_of_the_day.xml" value="0.3615916955017301" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_photo_of_the_day.xml" value="0.25077081192189105" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_recycler.xml" value="0.264" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/fragment_settings.xml" value="0.253125" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/MyNasa/app/src/main/res/layout/mars_photo_item.xml" value="0.253125" />

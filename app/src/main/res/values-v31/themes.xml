@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Splash theme    -->
+    <style name="SplashTheme" parent="ThemeSpace">
+        <item name="android:windowSplashScreenBackground">@color/light_gray</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/nasa_new</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">@color/black</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/my_nasa_text</item>
+    </style>
+</resources>
