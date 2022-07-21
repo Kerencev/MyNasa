@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/enter_the_date"
         android:src="@drawable/edit_calendar_24"
-        app:layout_behavior=".view.behaviors.ActionButtonBehavior" />
+        app:layout_behavior=".ui.behaviors.ActionButtonBehavior" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -48,7 +48,7 @@
             android:layout_margin="@dimen/margin_chip_group"
             android:contentDescription="@string/photo_of_the_day"
             android:src="@drawable/nasa"
-            app:layout_behavior=".view.behaviors.ImageViewBehavior" />
+            app:layout_behavior=".ui.behaviors.ImageViewBehavior" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/bottomSheet"
@@ -93,7 +93,7 @@
             android:layout_width="@dimen/width_matrix_icon"
             android:layout_height="@dimen/width_matrix_icon"
             app:cardCornerRadius="@dimen/corner_radius_card_icon_matrix"
-            app:layout_behavior=".view.behaviors.IconMatrixBehavior">
+            app:layout_behavior=".ui.behaviors.IconMatrixBehavior">
 
             <ImageView
                 android:id="@+id/img_user_neo"

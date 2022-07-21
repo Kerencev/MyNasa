@@ -20,4 +20,5 @@
     <dimen name="width_matrix_icon">52dp</dimen>
     <dimen name="corner_radius_card_icon_matrix">50dp</dimen>
     <dimen name="padding_image_icon_matrix">4dp</dimen>
+    <dimen name="size_rover_icon">200dp</dimen>
 </resources>
