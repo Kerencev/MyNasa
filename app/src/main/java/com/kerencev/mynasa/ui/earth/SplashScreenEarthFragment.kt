@@ -46,8 +46,9 @@ class SplashScreenEarthFragment :
             }
             else -> {
                 parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, ViewPagerEarthFragment(viewModel))
-                .commitAllowingStateLoss()
+                    .setCustomAnimations(R.animator.to_left_in, R.animator.to_left_out)
+                    .replace(R.id.fragment_container, ViewPagerEarthFragment(viewModel))
+                    .commitAllowingStateLoss()
             }
         }
     }

@@ -29,6 +29,7 @@ class SplashScreenPhotoOfTheDayFragment :
         animateTelescopeImage()
         val observer = Observer<AppState> {
             parentFragmentManager.beginTransaction()
+                .setCustomAnimations(R.animator.to_left_in, R.animator.to_left_out)
                 .replace(R.id.fragment_container, ViewPagerPhotoOfTheDayFragment(vieModel))
                 .commitAllowingStateLoss()
         }
