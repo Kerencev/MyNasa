@@ -9,11 +9,9 @@ import com.kerencev.mynasa.R
 import com.kerencev.mynasa.databinding.ActivityMainBinding
 import com.kerencev.mynasa.model.helpers.SPreference
 import com.kerencev.mynasa.ui.earth.SplashScreenEarthFragment
-import com.kerencev.mynasa.ui.earth.ViewPagerEarthFragment
-import com.kerencev.mynasa.ui.mars.MarsFragment
 import com.kerencev.mynasa.ui.mars.SplashScreenMarsFragment
+import com.kerencev.mynasa.ui.photooftheday.SplashScreenPhotoOfTheDayFragment
 import com.kerencev.mynasa.ui.recycler.RecyclerFragment
-import com.kerencev.mynasa.ui.photooftheday.ViewPagerPhotoOfTheDayFragment
 import com.kerencev.mynasa.ui.settings.SettingsFragment
 
 class MainActivity : AppCompatActivity(), BottomNavigationHandler {
@@ -28,7 +26,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationHandler {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, ViewPagerPhotoOfTheDayFragment())
+                .replace(R.id.fragment_container, SplashScreenPhotoOfTheDayFragment())
                 .commitAllowingStateLoss()
         }
         setBottomNavigationClicks()
@@ -37,10 +35,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationHandler {
     private fun setBottomNavigationClicks() {
         findViewById<BottomNavigationView>(R.id.bottom_navigation).setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.action_photo_of_the_day -> navigateTo(
-                    ViewPagerPhotoOfTheDayFragment(),
-                    "ViewPagerPhotoOfTheDayFragment"
-                )
+                R.id.action_photo_of_the_day -> navigateTo(SplashScreenPhotoOfTheDayFragment(), "")
                 R.id.action_settings -> navigateTo(SettingsFragment(), "")
                 R.id.action_earth -> navigateTo(SplashScreenEarthFragment(), "")
                 R.id.action_mars -> navigateTo(SplashScreenMarsFragment(), "")

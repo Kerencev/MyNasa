@@ -14,7 +14,7 @@ import com.kerencev.mynasa.ui.animation.ZoomOutPageTransformer
 import com.kerencev.mynasa.ui.earth.ViewPagerHandler
 import com.kerencev.mynasa.ui.photo.PhotoFragment
 
-class ViewPagerPhotoOfTheDayFragment : Fragment() {
+class ViewPagerPhotoOfTheDayFragment(private val viewModel: PhotoOfTheDayViewModel) : Fragment() {
     private var _binding: ViewPagerPhotoOfTheDayBinding? = null
     private val binding get() = _binding!!
 
@@ -44,10 +44,12 @@ class ViewPagerPhotoOfTheDayFragment : Fragment() {
 
     private fun getPhotoOfTheDayFragmentList(): List<PhotoOfTheDayFragment> {
         val result: ArrayList<PhotoOfTheDayFragment> = ArrayList()
-        for (i in 0 .. 2) {
+        for (i in 0..2) {
+            val date = if (i > 0) MyDate.getPastDays(i.toLong()) else null
             result.add(
                 PhotoOfTheDayFragment.newInstance(
-                    MyDate.getPastDays(i.toLong()),
+                    viewModel,
+                    date,
                     object : ViewPagerHandler {
                         override fun onImageClick(imageUrl: String) {
                             parentFragmentManager.beginTransaction()

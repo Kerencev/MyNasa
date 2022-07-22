@@ -11,7 +11,7 @@
         android:layout_gravity="center"/>
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imgMars"
+        android:id="@+id/imgRover"
         android:layout_width="@dimen/size_rover_icon"
         android:layout_height="@dimen/size_rover_icon"
         android:layout_gravity="center|start"

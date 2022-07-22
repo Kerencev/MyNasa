@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.transition.ArcMotion
 import androidx.transition.ChangeBounds
 import androidx.transition.TransitionManager
+import com.google.android.material.snackbar.Snackbar
 import com.kerencev.mynasa.R
 import com.kerencev.mynasa.databinding.FragmentSplashScreenMarsBinding
 import com.kerencev.mynasa.ui.ViewBindingFragment
@@ -25,24 +26,11 @@ class SplashScreenMarsFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            val changeBounds = ChangeBounds()
-            changeBounds.setPathMotion(ArcMotion())
-            changeBounds.duration = 3000
-            TransitionManager.beginDelayedTransition(
-                binding.main,
-                changeBounds
-            )
-            val params = binding.imgMars.layoutParams as FrameLayout.LayoutParams
-            params.gravity = Gravity.CENTER or Gravity.END
-            binding.imgMars.layoutParams = params
-        }, 10)
-
+        animateRoverImage()
         val lastDateObserver = Observer<String?> { date ->
             when (date) {
                 null -> {
-                    navigateToMarsFragment()
+                    showSnackBar()
                 }
                 else -> {
                     viewModel.getPhotosByDate(date)
@@ -54,11 +42,36 @@ class SplashScreenMarsFragment :
             navigateToMarsFragment()
         }
         viewModel.lastPhotosData.observe(viewLifecycleOwner, lastPhotosObserver)
-
         when (val date = arguments?.getString(BUNDLE_KEY_DATE_MARS)) {
             null -> viewModel.getLastDate()
             else -> viewModel.getPhotosByDate(date)
         }
+    }
+
+    private fun animateRoverImage() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            val changeBounds = ChangeBounds()
+            changeBounds.setPathMotion(ArcMotion())
+            changeBounds.duration = 3000
+            TransitionManager.beginDelayedTransition(
+                binding.main,
+                changeBounds
+            )
+            val params = binding.imgRover.layoutParams as FrameLayout.LayoutParams
+            params.gravity = Gravity.CENTER or Gravity.END
+            binding.imgRover.layoutParams = params
+        }, 10)
+    }
+
+    private fun showSnackBar() {
+        Snackbar
+            .make(
+                binding.main,
+                R.string.data_could_not_be_retrieved_check_your_internet_connection,
+                Snackbar.LENGTH_LONG
+            )
+            .setAction(R.string.reload) { viewModel.getLastDate() }
+            .show()
     }
 
     private fun navigateToMarsFragment() {

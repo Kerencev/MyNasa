@@ -11,6 +11,7 @@ import androidx.transition.ArcMotion
 import androidx.transition.ChangeBounds
 import androidx.transition.Fade
 import androidx.transition.TransitionManager
+import com.google.android.material.snackbar.Snackbar
 import com.kerencev.mynasa.R
 import com.kerencev.mynasa.data.retrofit.entities.dates.DatesEarthPhotosResponse
 import com.kerencev.mynasa.databinding.FragmentSplashScreenEarthBinding
@@ -32,12 +33,34 @@ class SplashScreenEarthFragment :
         animateAstronaut()
 
         val observer = Observer<DatesEarthPhotosResponse?> {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, ViewPagerEarthFragment(viewModel))
-                .commitAllowingStateLoss()
+            renderData(it)
         }
         viewModel.earthPhotosDatesData.observe(viewLifecycleOwner, observer)
         viewModel.getEarthPhotosDates()
+    }
+
+    private fun renderData(data: DatesEarthPhotosResponse?) {
+        when (data) {
+            null -> {
+                showSnackBar()
+            }
+            else -> {
+                parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, ViewPagerEarthFragment(viewModel))
+                .commitAllowingStateLoss()
+            }
+        }
+    }
+
+    private fun showSnackBar() {
+        Snackbar
+            .make(
+                binding.main,
+                R.string.data_could_not_be_retrieved_check_your_internet_connection,
+                Snackbar.LENGTH_LONG
+            )
+            .setAction(R.string.reload) { viewModel.getEarthPhotosDates() }
+            .show()
     }
 
     private fun animateAstronaut() {

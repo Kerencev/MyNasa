@@ -27,14 +27,18 @@ import com.google.android.material.snackbar.Snackbar
 import com.kerencev.mynasa.R
 import com.kerencev.mynasa.data.retrofit.entities.pictureoftheday.PictureOfTheDayResponseData
 import com.kerencev.mynasa.databinding.FragmentPhotoOfTheDayBinding
+import com.kerencev.mynasa.model.helpers.MyDate
 import com.kerencev.mynasa.ui.earth.ViewPagerHandler
 import com.kerencev.mynasa.ui.main.AppState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 const val BUNDLE_DATE_KEY = "BUNDLE_DATE_KEY"
 
-class PhotoOfTheDayFragment(private val viewPagerHandler: ViewPagerHandler) : Fragment() {
-    private val viewModel: PhotoOfTheDayViewModel by viewModel()
+class PhotoOfTheDayFragment(
+    private val viewModel: PhotoOfTheDayViewModel,
+    private val viewPagerHandler: ViewPagerHandler
+) : Fragment() {
+    private val photoOfTheDayViewModel: PhotoOfTheDayViewModel by viewModel()
     private var _binding: FragmentPhotoOfTheDayBinding? = null
     private val binding get() = _binding!!
     private var date: String? = null
@@ -55,8 +59,18 @@ class PhotoOfTheDayFragment(private val viewPagerHandler: ViewPagerHandler) : Fr
         super.onViewCreated(view, savedInstanceState)
         date = arguments?.getString(BUNDLE_DATE_KEY)
         val pictureOfTheDayObserver = Observer<AppState> { renderData(it) }
-        viewModel.pictureOfTheDayData.observe(viewLifecycleOwner, pictureOfTheDayObserver)
-        date?.let { viewModel.getPictureByDate(it) }
+        photoOfTheDayViewModel.pictureOfTheDayData.observe(
+            viewLifecycleOwner,
+            pictureOfTheDayObserver
+        )
+        when (date) {
+            null -> {
+                viewModel.pictureOfTheDayData.value?.let { renderData(it) }
+            }
+            else -> {
+                photoOfTheDayViewModel.getPictureByDate(date!!)
+            }
+        }
 
         inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
@@ -166,11 +180,20 @@ class PhotoOfTheDayFragment(private val viewPagerHandler: ViewPagerHandler) : Fr
         binding.progressBar.visibility = View.GONE
         Snackbar
             .make(
-                binding.main,
+                requireActivity().findViewById(android.R.id.content),
                 R.string.data_could_not_be_retrieved_check_your_internet_connection,
                 Snackbar.LENGTH_LONG
             )
-            .setAction(R.string.reload) { date?.let { viewModel.getPictureByDate(it) } }
+            .setAction(R.string.reload) {
+                when (date) {
+                    null -> {
+                        photoOfTheDayViewModel.getPictureByDate(MyDate.getPastDays(0))
+                    }
+                    else -> {
+                        photoOfTheDayViewModel.getPictureByDate(date!!)
+                    }
+                }
+            }
             .show()
     }
 
@@ -197,12 +220,21 @@ class PhotoOfTheDayFragment(private val viewPagerHandler: ViewPagerHandler) : Fr
     }
 
     companion object {
-        fun newInstance(date: String, viewPagerHandler: ViewPagerHandler): PhotoOfTheDayFragment {
-            val bundle = Bundle()
-            bundle.putString(BUNDLE_DATE_KEY, date)
-            val fragment = PhotoOfTheDayFragment(viewPagerHandler)
-            fragment.arguments = bundle
-            return fragment
+        fun newInstance(
+            viewModel: PhotoOfTheDayViewModel,
+            date: String?,
+            viewPagerHandler: ViewPagerHandler
+        ): PhotoOfTheDayFragment {
+            return when (date) {
+                null -> PhotoOfTheDayFragment(viewModel, viewPagerHandler)
+                else -> {
+                    PhotoOfTheDayFragment(viewModel, viewPagerHandler).apply {
+                        arguments = Bundle().apply {
+                            putString(BUNDLE_DATE_KEY, date)
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -5,14 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kerencev.mynasa.R
 import com.kerencev.mynasa.data.retrofit.entities.dates.DatesEarthPhotosResponse
 import com.kerencev.mynasa.databinding.FragmentEartViewPagerBinding
 import com.kerencev.mynasa.ui.animation.DepthPageTransformer
 import com.kerencev.mynasa.ui.photo.PhotoFragment
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ViewPagerEarthFragment(private val viewModel: EarthViewModel) : Fragment() {
     private var _binding: FragmentEartViewPagerBinding? = null

@@ -16,7 +16,6 @@ class PhotoOfTheDayViewModel(private val repository: Repository) : ViewModel() {
     val pictureOfTheDayData: LiveData<AppState> get() = _pictureOfTheDayData
 
     fun getPictureByDate(date: String) {
-        _pictureOfTheDayData.value = AppState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             repository.getPictureByDateApi(date, object :
                 RetrofitCallBack<PictureOfTheDayResponseData> {

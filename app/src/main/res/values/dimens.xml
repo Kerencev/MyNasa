@@ -24,4 +24,5 @@
     <dimen name="padding_earth_splash_screen">12dp</dimen>
     <dimen name="size_img_comet">200dp</dimen>
     <dimen name="size_img_astronaut">160dp</dimen>
+    <dimen name="height_img_telescope">100dp</dimen>
 </resources>
