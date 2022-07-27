@@ -10,7 +10,6 @@ import com.kerencev.mynasa.databinding.FragmentSplashScreenPhotoOfTheDayBinding
 import com.kerencev.mynasa.model.helpers.MyDate
 import com.kerencev.mynasa.ui.ViewBindingFragment
 import com.kerencev.mynasa.ui.main.AppState
-import com.kerencev.mynasa.ui.main.BottomNavigationHandler
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashScreenPhotoOfTheDayFragment :
@@ -23,14 +22,6 @@ class SplashScreenPhotoOfTheDayFragment :
     private lateinit var timerForTelescope: CountDownTimer
     private var flagForStars = false
     private var flagForTelescope = false
-    private var mainActivity: BottomNavigationHandler? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mainActivity = (activity as? BottomNavigationHandler)
-        mainActivity?.isShowBottomNavigation(false)
-        mainActivity?.isShowSystemBar(false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -88,7 +79,5 @@ class SplashScreenPhotoOfTheDayFragment :
         super.onDestroyView()
         timerForStars.cancel()
         timerForTelescope.cancel()
-        mainActivity?.isShowBottomNavigation(true)
-        mainActivity?.isShowSystemBar(true)
     }
 }
